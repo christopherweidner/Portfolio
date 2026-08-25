@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import BloomField from "@/components/BloomField";
-import Nav from "@/components/Nav";
+import Nav from "@/components/nav/Nav";
 
 const serif = Cormorant_Garamond({
   variable: "--font-serif-face",
