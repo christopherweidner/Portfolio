@@ -1,26 +1,114 @@
 @import "tailwindcss";
 
+/* ============================================================
+   COBALT & WARM PAPER
+   A committed light design. Every colour is painted explicitly —
+   nothing here follows the visitor's system theme, on purpose.
+   ============================================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ground:      #F7F4EC;  /* warm paper */
+  --ground-soft: #FCFAF4;  /* raised surfaces */
+  --blue:        #1B4FD1;  /* cobalt — the only colour event */
+  --blue-light:  #6F8FE8;  /* bloom edges */
+  --blue-deep:   #12327F;
+  --ink:         #0C0F16;  /* headline near-black */
+  --ink-soft:    #2A3140;  /* body */
+  --ink-faint:   #6B7180;  /* tertiary */
+  --label:       #0D2A6E;  /* the blue-black on small caps labels */
+  --rule:        #E4DFD4;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ground:      var(--ground);
+  --color-ground-soft: var(--ground-soft);
+  --color-blue:        var(--blue);
+  --color-blue-light:  var(--blue-light);
+  --color-blue-deep:   var(--blue-deep);
+  --color-ink:         var(--ink);
+  --color-ink-soft:    var(--ink-soft);
+  --color-ink-faint:   var(--ink-faint);
+  --color-label:       var(--label);
+  --color-rule:        var(--rule);
+
+  --font-serif: var(--font-serif-face), Georgia, serif;
+  --font-sans:  var(--font-sans-face), system-ui, sans-serif;
+  --font-mono:  var(--font-mono-face), ui-monospace, monospace;
+
+  --text-display: clamp(2.875rem, 10vw, 8.25rem);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ---------------- base ---------------- */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--ground);   /* explicit — never inherit a ground */
+  color: var(--ink-soft);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { text-wrap: balance; color: var(--ink); }
+
+::selection { background: var(--blue); color: var(--ground); }
+
+/* ============================================================
+   BLOOM — the aura. Position and size it with utilities;
+   tune it with these custom properties, which act as its API:
+     --bloom-color    default cobalt
+     --bloom-blur     default 84px
+     --bloom-opacity  default 0.8
+     --bloom-speed    default 40s
+   ============================================================ */
+
+.bloom {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 50%,
+    var(--bloom-color, var(--blue)) 0%,
+    transparent 68%
+  );
+  filter: blur(var(--bloom-blur, 84px));
+  opacity: var(--bloom-opacity, 0.8);
+  animation: drift var(--bloom-speed, 40s) ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(2.5%, -3%, 0) scale(1.07); }
+}
+
+/* ============================================================
+   GRAIN — fine noise over the blooms. This is doing more work
+   than it looks like: without it the gradients read as cheap.
+   ============================================================ */
+
+.grain {
+  position: absolute;
+  inset: -2px;
+  pointer-events: none;
+  opacity: 0.19;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============================================================
+   The one orchestrated moment — staggered entrance on load.
+   Add `reveal` and set --d for the delay.
+   ============================================================ */
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.reveal {
+  animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bloom  { animation: none; }
+  .reveal { animation: none; }
 }
