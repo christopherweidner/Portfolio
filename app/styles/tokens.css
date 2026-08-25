@@ -1,0 +1,65 @@
+/* ============================================================
+   DESIGN TOKENS
+   The only file in the project that defines a colour or a
+   typeface. Everything else references these through Tailwind
+   utilities (bg-ground, text-ink) or var(--blue).
+
+   This is a committed light design: nothing here follows the
+   visitor's system theme, on purpose.
+   ============================================================ */
+
+:root {
+  --ground:      #F7F4EC;  /* warm paper */
+  --ground-soft: #FCFAF4;  /* raised surfaces */
+  --blue:        #1B4FD1;  /* cobalt — the only colour event */
+  --blue-light:  #6F8FE8;  /* bloom edges, hover states */
+  --blue-deep:   #12327F;
+  --ink:         #0C0F16;  /* headlines */
+  --ink-soft:    #2A3140;  /* body copy */
+  --ink-faint:   #6B7180;  /* tertiary */
+  --label:       #0D2A6E;  /* small caps labels */
+  --rule:        #E4DFD4;  /* hairlines */
+  --plate:       #C6C0B2;  /* inactive markers */
+}
+
+@theme inline {
+  --color-ground:      var(--ground);
+  --color-ground-soft: var(--ground-soft);
+  --color-blue:        var(--blue);
+  --color-blue-light:  var(--blue-light);
+  --color-blue-deep:   var(--blue-deep);
+  --color-ink:         var(--ink);
+  --color-ink-soft:    var(--ink-soft);
+  --color-ink-faint:   var(--ink-faint);
+  --color-label:       var(--label);
+  --color-rule:        var(--rule);
+  --color-marker:      var(--plate);
+
+  --font-serif: var(--font-serif-face), Georgia, serif;
+  --font-sans:  var(--font-sans-face), system-ui, sans-serif;
+  --font-mono:  var(--font-mono-face), ui-monospace, monospace;
+
+  --text-display: clamp(2.875rem, 10vw, 8.25rem);
+  --text-era:     clamp(2.75rem, 6vw, 4.625rem);
+}
+
+/* ---------------- base elements ---------------- */
+
+body {
+  background: var(--ground);   /* explicit — never inherit a ground */
+  color: var(--ink-soft);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+::selection {
+  background: var(--blue);
+  color: var(--ground);
+}

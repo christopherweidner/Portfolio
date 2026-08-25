@@ -1,0 +1,174 @@
+/* ============================================================
+   EFFECTS
+   Reusable visual treatments shared across pages. Each one is
+   configured through custom properties rather than variants, so
+   a component tunes it inline without new CSS being written.
+   ============================================================ */
+
+/* ---------------- bloom field ----------------
+   The cobalt background, rendered once in the root layout and shared by every
+   route. It sits on a negative z-index: the body's background paints the page
+   canvas, so the field lands above that and below all page content without
+   any page needing to opt in.
+
+   Two layers per bloom on purpose. The anchor carries position and shape and
+   is TRANSITIONED, so a route change morphs it. The inner .bloom carries the
+   endless ambient drift as a keyframe ANIMATION. Both write `transform`, and
+   a transition and an animation cannot share a property without fighting.
+
+   Configure the arrangement per route in lib/blooms.ts.
+--------------------------------------- */
+
+.bloom-field {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bloom-anchor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60vw;
+  height: 60vh;
+  will-change: transform, opacity;
+  transition:
+    transform 1400ms cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 900ms ease;
+}
+
+.bloom {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    var(--bloom-color, var(--blue)) 0%,
+    transparent 68%
+  );
+  filter: blur(var(--bloom-blur, 84px));
+  animation: drift var(--bloom-speed, 40s) ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%,
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(2.5%, -3%, 0) scale(1.07); }
+}
+
+/* ---------------- grain ----------------
+   Fine noise over the blooms. Doing more work than it looks
+   like: without it the gradients read as cheap.
+--------------------------------------- */
+
+.grain-field {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.19;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Local grain, for anything that needs it inside its own box. */
+.grain {
+  position: absolute;
+  inset: -2px;
+  pointer-events: none;
+  opacity: 0.19;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------------- media ----------------
+   A photo frame that shows a cobalt placeholder until a real image exists.
+   The angle is per-item via --pa, so adjacent placeholders differ.
+   Shared by the sport timeline plate and the projects backdrop.
+--------------------------------------- */
+
+.media {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    var(--pa, 150deg),
+    var(--blue) 0%,
+    var(--blue-light) 52%,
+    #cbd7f5 100%
+  );
+}
+
+/* ---------------- glass ----------------
+   Translucent surface for the nav dock and any card that sits
+   over imagery. The inset highlight along the top edge is what
+   makes it read as glass rather than a blurred grey box.
+--------------------------------------- */
+
+.glass {
+  background: linear-gradient(
+    140deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.26) 52%,
+    rgba(255, 255, 255, 0.40) 100%
+  );
+  backdrop-filter: blur(18px) saturate(1.7);
+  -webkit-backdrop-filter: blur(18px) saturate(1.7);
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  box-shadow:
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.92),
+    inset 0 -1px 0.5px rgba(255, 255, 255, 0.30),
+    0 10px 34px -14px rgba(27, 79, 209, 0.28),
+    0 2px 10px -6px rgba(12, 15, 22, 0.14);
+}
+
+/* ---------------- reveal ----------------
+   Staggered entrance. Add `reveal` and set --d for the delay.
+--------------------------------------- */
+
+.reveal {
+  animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------------- link underline ----------------
+   An underline that draws itself in from the left on hover or focus.
+   Thickness is per-use: set --u on the element.
+--------------------------------------- */
+
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% var(--u, 1px);
+  transition: background-size 550ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+a:hover .link-underline,
+a:focus-visible .link-underline {
+  background-size: 100% var(--u, 1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link-underline { transition-duration: 1ms; }
+}
+
+/* ---------------- utilities ---------------- */
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bloom  { animation: none; }
+  .reveal { animation: none; }
+  .bloom-anchor { transition-duration: 1ms; }
+}

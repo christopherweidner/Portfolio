@@ -1,0 +1,34 @@
+/* ============================================================
+   TIMELINE
+   The photo plate and the cursor dot used by the Sport page.
+   Transforms are written directly by useAnchoredDrift, so these
+   rules must not set `transform` themselves.
+   ============================================================ */
+
+/* Use together with .media, which supplies the frame and the placeholder. */
+.plate {
+  border-radius: 2px;
+  will-change: transform;
+  box-shadow: 0 26px 60px -30px rgba(12, 15, 22, 0.5);
+}
+
+.cursor-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--blue);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  will-change: transform;
+}
+
+[data-pointer="in"] .cursor-dot { opacity: 1; }
+
+/* Hide the native cursor only where one actually exists */
+@media (hover: hover) and (pointer: fine) {
+  .cursor-hidden { cursor: none; }
+}
