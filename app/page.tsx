@@ -16,12 +16,6 @@ export default function Home() {
             Swimming taught me that anything worth building is just small details repeated for years. I’m doing the same thing with software now — and pointing it at preventive health.
           </p>
         </div>
-
-        <div className="absolute inset-x-0 top-0 grid justify-items-center gap-1 px-6 pt-8 text-center font-mono text-[11px] uppercase tracking-[0.14em] text-label sm:grid-cols-[1fr_auto_1fr] sm:gap-4">
-          <span className="sm:justify-self-start sm:text-left">Hasso-Plattner-Institute</span>
-          <span>German national swim team</span>
-          <span className="sm:justify-self-end sm:text-right">Potsdam, Germany</span>
-        </div>
       </section>
     </main>
   );
