@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import LearningMap from "@/components/learning/LearningMap";
 
-export const metadata: Metadata = { title: "Learning — Christopher Weidner" };
+export const metadata: Metadata = {
+  title: "Learning — Christopher Weidner",
+  description:
+    "Computer science, health, coaching and building — what I am studying, where it overlaps, and what I actually thought of it.",
+};
 
 export default function Learning() {
   return (
-    <main className="flex-1 px-6 pb-32 pt-28">
-      <div className="mx-auto flex max-w-[68ch] flex-col gap-6">
-        <h1 className="font-serif text-5xl font-normal">Learning</h1>
-        <p className="leading-relaxed">Coming soon.</p>
-      </div>
+    <main className="flex-1">
+      <LearningMap />
     </main>
   );
 }

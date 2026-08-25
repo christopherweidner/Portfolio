@@ -20,6 +20,16 @@
   --label:       #0D2A6E;  /* small caps labels */
   --rule:        #E4DFD4;  /* hairlines */
   --plate:       #C6C0B2;  /* inactive markers */
+
+  /* Transit-map lines. Tints of cobalt, so the one-colour rule still holds.
+     Swap these four for distinct hues if the map ever needs to be easier to
+     follow than it is to look at. Six defined so new lines have headroom. */
+  --line-1:      #0E2C74;
+  --line-2:      #1B4FD1;
+  --line-3:      #4C7DE2;
+  --line-4:      #97AFEF;
+  --line-5:      #2A6BB8;
+  --line-6:      #6E93D8;
 }
 
 @theme inline {
