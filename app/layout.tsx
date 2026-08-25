@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+import BloomField from "@/components/BloomField";
 import Nav from "@/components/Nav";
 
 const serif = Cormorant_Garamond({
@@ -38,6 +39,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${serif.variable} ${sans.variable} ${mono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-ground text-ink-soft">
+        <BloomField />
+        <div aria-hidden className="grain-field" />
         {children}
         <Nav />
       </body>
