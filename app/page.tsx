@@ -51,7 +51,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="absolute inset-x-0 bottom-0 flex flex-wrap justify-between gap-4 px-6 pb-6 font-mono text-[11px] uppercase tracking-[0.14em] text-label">
+        <div className="absolute inset-x-0 top-0 flex flex-wrap justify-between gap-4 px-6 pt-8 font-mono text-[11px] uppercase tracking-[0.14em] text-label">
           <span>Hasso-Plattner-Institut</span>
           <span>German national swim team</span>
           <span>Potsdam, Germany</span>
