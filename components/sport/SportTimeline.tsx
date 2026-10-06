@@ -69,8 +69,8 @@ export default function SportTimeline() {
       data-pointer="out"
       className={[
         "cursor-hidden relative",
-        "min-h-svh overflow-x-clip",
-        "md:h-svh md:overflow-hidden",
+        "min-h-page overflow-x-clip",
+        "md:h-page md:overflow-hidden",
       ].join(" ")}
     >
       {/* Drifts with the pointer. Only rendered where a fine pointer exists. */}
@@ -84,7 +84,7 @@ export default function SportTimeline() {
 
       <span aria-hidden ref={dotRef} className="cursor-dot z-20" />
 
-      <div className="pointer-events-none relative z-10 flex min-h-svh flex-col md:h-full">
+      <div className="pointer-events-none relative z-10 flex min-h-page flex-col md:h-full">
         <div className="px-6 pt-8 sm:px-12 sm:pt-10">
           <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-label opacity-70">
             Swimming
@@ -96,7 +96,7 @@ export default function SportTimeline() {
           />
         </div>
 
-        <div className="grid flex-1 items-start gap-8 px-6 pb-28 pt-8 sm:px-12 md:grid-cols-2 md:pt-14">
+        <div className="grid flex-1 items-start gap-8 px-6 pb-12 pt-8 sm:px-12 md:grid-cols-2 md:pt-14">
           <div className="hidden md:block" />
 
           <div className="flex flex-col gap-7">

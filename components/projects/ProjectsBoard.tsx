@@ -25,13 +25,13 @@ export default function ProjectsBoard() {
   }, []);
 
   return (
-    <section className="relative min-h-svh">
+    <section className="relative min-h-page">
       {/* Panel: full height at the right on desktop, a band above the list on phones. */}
       <div className="relative mx-6 mb-8 h-[220px] sm:mx-12 lg:absolute lg:inset-y-0 lg:right-0 lg:m-0 lg:h-auto lg:w-[46%]">
         <ProjectBackdrop projects={PROJECTS} activeIndex={active} />
       </div>
 
-      <div className="relative z-10 flex min-h-svh flex-col justify-center px-6 pb-36 pt-8 sm:px-12 lg:w-[54%] lg:pt-24">
+      <div className="relative z-10 flex min-h-page flex-col justify-center px-6 pb-16 pt-8 sm:px-12 lg:w-[54%] lg:pt-24">
         <div className="flex flex-col gap-2">
           <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-label opacity-70">
             Projects

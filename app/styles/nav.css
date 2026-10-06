@@ -1,0 +1,14 @@
+/* ============================================================
+   TOP BAR
+   The bar's height is fixed so full-screen sections can subtract
+   it. Two rows on a phone (name, then links), one row from sm up.
+   ============================================================ */
+
+:root { --bar-h: 5.75rem; }
+
+@media (min-width: 40rem) {
+  :root { --bar-h: 3.75rem; }
+}
+
+@utility h-page { height: calc(100svh - var(--bar-h)); }
+@utility min-h-page { min-height: calc(100svh - var(--bar-h)); }

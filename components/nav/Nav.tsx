@@ -1,22 +1,10 @@
-import DesktopDock from "./DesktopDock";
-import MobileMenu from "./MobileMenu";
+import TopBar from "./TopBar";
 
 /**
- * Navigation for the whole site.
- *
- * Two entirely separate designs, switched by CSS rather than by measuring the
- * viewport in JavaScript. `window.innerWidth` does not exist on the server, so
- * a JS switch renders the wrong one first and then corrects itself — a visible
- * flash and a hydration mismatch. With CSS the first painted frame is right.
- *
- * Both read their links from content/navigation.ts, so the two layouts can
- * diverge as much as they like without the content ever drifting apart.
+ * Navigation for the whole site. One component at every width, so there is
+ * no viewport switch and nothing to flash on first paint. Links live in
+ * content/navigation.ts.
  */
 export default function Nav() {
-  return (
-    <>
-      <DesktopDock />
-      <MobileMenu />
-    </>
-  );
+  return <TopBar />;
 }

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function Contact() {
   return (
     <main className="flex-1">
-      <section className="relative flex min-h-svh flex-col items-center justify-center px-6 pb-36 pt-24 text-center">
+      <section className="relative flex min-h-page flex-col items-center justify-center px-6 pb-16 pt-12 text-center">
         <div className="flex w-full max-w-[62ch] flex-col items-center gap-7">
           <span className="reveal font-mono text-[10px] uppercase tracking-[0.16em] text-label opacity-70">
             Get in touch
