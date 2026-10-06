@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
+import Link from "next/link";
 import { EMAIL, INVITATION, SOCIALS } from "@/content/contact";
+import { LEGAL_LINKS } from "@/content/navigation";
 
 export const metadata: Metadata = {
   title: "Contact — Christopher Weidner",
@@ -11,15 +13,20 @@ export const metadata: Metadata = {
 const focusRing = "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue";
 
 /**
- * The invitation, the address and the profiles, centred. No JavaScript of its
- * own; the site footer band is left out on this page (see FooterGate).
+ * The heading, then the invitation, the address and the profiles, centred.
+ * No JavaScript of its own; the site footer band is left out on this page
+ * (see FooterGate).
  */
 export default function Contact() {
   return (
-    <main className="flex-1">
-      <section className="flex min-h-page flex-col items-center justify-center px-6 py-24 text-center">
+    <main className="flex flex-1 flex-col px-6 pb-12 pt-12 sm:px-10">
+      <h1 className="reveal text-center font-display text-display uppercase leading-[0.9]">Contact</h1>
+
+      <section className="flex flex-1 flex-col items-center justify-center pt-16 pb-12 text-center">
         <div className="flex w-full max-w-[62ch] flex-col items-center gap-8">
-          <h1 className="reveal font-mono text-[11px] uppercase tracking-[0.16em] text-label!">Get in touch</h1>
+          <p className="reveal font-mono text-[11px] uppercase tracking-[0.16em] text-label" style={{ "--d": "80ms" } as CSSProperties}>
+            Get in touch
+          </p>
 
           <div className="flex flex-col gap-4">
             {INVITATION.map((line, i) => (
@@ -60,6 +67,17 @@ export default function Contact() {
             ))}
           </ul>
         </div>
+
+        {/* The footer band is left out here, so the legal links come along on their own. */}
+        <ul className="mt-20 flex gap-5 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-soft">
+          {LEGAL_LINKS.map(({ href, label }) => (
+            <li key={href}>
+              <Link href={href} className={`underline-offset-4 transition-colors hover:text-blue hover:underline ${focusRing}`}>
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </section>
     </main>
   );

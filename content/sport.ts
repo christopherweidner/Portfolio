@@ -3,17 +3,20 @@
  *
  * This is the only file you need to edit to change what the Sport page says.
  * Add, remove or reorder entries and the layout follows — the page lays out one
- * section per moment, alternating sides.
+ * section per moment, alternating sides, and the dot menu on the right gets
+ * one dot per moment automatically.
  *
- * TODO: every year below is a placeholder. Replace them.
+ * `year` can be a single year ("2019") or a season ("2020/2021") — both fit.
+ * In `body`, a blank line ("\n\n") starts a new paragraph.
  */
 
 export type Moment = {
-  /** The giant year shown beside the photo. */
+  /** The year or season shown above the photo, and in the dot menu. */
   year: string;
   /** Small mono label above the title. */
   eyebrow: string;
   title: string;
+  /** Plain text. A blank line ("\n\n") starts a new paragraph. */
   body: string;
   /** Photos live in /public/sport/ — reference them as "/sport/name.jpg". */
   image?: string;
@@ -71,7 +74,7 @@ export const MOMENTS: Moment[] = [
     body:
       "Riding the momentum of that success, we doubled down on the exact same strategy for the following season. The next year, I won my first Junior National title and qualified for my first Open National Championships, suddenly racing alongside the senior athletes. At 16 years old, I made the Open finals in both the 50m and 100m breaststroke, finishing 6th and 7th in the country.",
     image: "/sport/djm-2023.jpg",
-      angle: "95deg",
+    angle: "95deg",
   },
   {
     year: "2021/2022",
@@ -93,7 +96,7 @@ export const MOMENTS: Moment[] = [
   },
   {
     year: "2023/2024",
-    eyebrow: "06 — Top group",
+    eyebrow: "07 — Top group",
     title: "The limits of hard work",
     body:
       "Following facility restructuring and the results from the prior year, I moved into the senior top group in Potsdam under a new coach. Once again, I had to adapt, as we pushed volume, intensity, and frequency even higher. From the start, my gut told me this might not suit my physiology, but my coach had an impressive track record, so I trusted his authority over my own instincts. That blind trust led straight into overtraining. My progress stalled, my times plateaued, and slight gains fell far short of what I had worked for. It was a tough period, but it taught me an invaluable lesson: no matter how accomplished a coach is, you always have to think critically and stay in tune with your own body.",
@@ -102,7 +105,7 @@ export const MOMENTS: Moment[] = [
   },
   {
     year: "2024/2025",
-    eyebrow: "06 — Still working",
+    eyebrow: "08 — Still working",
     title: "Resetting and rebuilding",
     body:
       "The following season brought mixed emotions. As a relay team, we broke the German record in the 4x100m breaststroke. Individually, I still edged out minor improvements, but my times were still not where I wanted or expected them to be.",
@@ -111,7 +114,7 @@ export const MOMENTS: Moment[] = [
   },
   {
     year: "2025/2026",
-    eyebrow: "06 — Starting university",
+    eyebrow: "09 — Starting university",
     title: "Finding balance",
     body:
       "Starting university forced me to split my focus between demanding academics and high-performance sport. I reduced my training volume, hoping it would yield the same explosive turnaround I experienced years earlier when cutting meters. It didn’t work that way. I learned quickly that you can't optimize everything simultaneously without clear priorities. On top of that, I was still mentally and physically recovering from overtraining, and the general group sessions simply weren't tailored to what I needed as a pure sprinter. I seriously considered stepping away from competitive swimming altogether to focus on university, life, and my business projects. Even when I stepped away from group sessions to train completely solo at the Olympic center, I still managed to hit personal bests. It worked surprisingly well, but training alone without coaching input was far from sustainable.",
@@ -120,7 +123,7 @@ export const MOMENTS: Moment[] = [
   },
   {
     year: "2026/2027",
-    eyebrow: "06 — Now",
+    eyebrow: "10 — Now",
     title: "Going all-in on the 50s",
     body:
       "A new opportunity opened up when my former coach from my first year in Potsdam formed a dedicated squad exclusively for 50m sprinters. The philosophy centers purely on maximum speed and power—a modern approach where quality and recovery take precedence over mindless volume. That is where I am today. Balancing rigorous university studies with elite sprint training isn't simple, and it demands tremendous discipline. But the passion and fun are completely back. Now, we let the racing do the talking. ",

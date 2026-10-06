@@ -1,26 +1,37 @@
 /* ============================================================
    HOME
-   The hero's fanned photos. Each card is offset by --y and
-   overlaps its neighbour; on load they fan out from a stack.
-   With a mouse they then follow the cursor (HeroPhotos).
+   The hero's fanned photos, fixed in the centre. Each card is
+   offset by --y and overlaps its neighbour; on load they fan out
+   from a stack.
+
+   While the intro plays the fan is hidden: the intro's polaroids
+   fly onto exactly these spots and hand over when they land
+   (data-intro="landed"), so the fan must not animate in again.
    ============================================================ */
 
 .hero-fan {
   display: flex;
   justify-content: center;
-  /* Decorative: never block the links behind. The trail's listeners are on
-     the section, so it still works. */
+  /* Decorative: never block the links around it. */
   pointer-events: none;
 }
+
+html:not([data-intro]) .hero-fan { visibility: hidden; }
 
 .hero-fan-item {
   --card-w: clamp(7rem, 22vw, 15rem);
   position: relative;
   width: var(--card-w);
   transform: translateY(var(--y, 0));
-  animation: fan-in 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: fan-in var(--dur-slow) var(--ease-out) both;
   animation-delay: calc(var(--i, 0) * 120ms);
 }
+
+/* No fan-in behind the intro (the polaroids measure the resting spots, so
+   nothing may be mid-animation) nor after it landed. A skipped intro sets
+   data-intro="skip", and the fan then plays in as usual. */
+html:not([data-intro]) .hero-fan-item,
+html[data-intro="landed"] .hero-fan-item { animation: none; }
 
 .hero-fan-item + .hero-fan-item { margin-left: calc(var(--card-w) * -0.28); }
 .hero-fan-item:nth-child(2) { z-index: 1; }
@@ -32,17 +43,4 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hero-fan-item { animation: none; }
-}
-
-/* The part of each photo that follows the cursor. HeroPhotos writes
-   `translate` and `rotate` here; the slot keeps the resting place. */
-.hero-trail {
-  transition:
-    translate 900ms var(--ease-spring),
-    rotate 900ms var(--ease-spring);
-  will-change: translate, rotate;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-trail { transition: none; }
 }

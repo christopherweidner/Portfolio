@@ -3,6 +3,11 @@
    Phases are driven by data-phase on .intro, set from Intro.tsx:
    greeting → photos → sentence → leaving. Everything else here is
    transitions keyed off that attribute.
+
+   In "leaving" the white ground fades away and each polaroid flies
+   to the --tx/--ty/--ts/--tr that Intro.tsx measured from its
+   photo's slot in the hero fan, losing its frame on the way, so it
+   arrives looking exactly like the hero card it hands over to.
    ============================================================ */
 
 .intro {
@@ -11,36 +16,71 @@
   z-index: 100;
   display: grid;
   place-items: center;
-  background: var(--ground);
+  background-color: var(--ground);
   cursor: pointer;
-  transition: opacity 600ms ease;
+  transition: background-color var(--dur-slow) var(--ease-out);
 }
 
-html[data-intro="skip"] .intro { display: none; }
-.intro[data-phase="leaving"] { opacity: 0; pointer-events: none; }
+html[data-intro] .intro { display: none; }
+.intro[data-phase="leaving"] {
+  background-color: transparent;
+  pointer-events: none;
+}
 
 /* Every layer shares the one grid cell so they stack in the centre. */
 .intro > * { grid-area: 1 / 1; }
 
+/* ---------------- greeting + loading bar ---------------- */
+
 .intro-greeting {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.9rem;
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 7vw, 5.5rem);
+  line-height: 1;
   text-transform: uppercase;
   color: var(--ink);
-  animation: intro-rise 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: intro-rise var(--dur-slow) var(--ease-out) both;
 }
 .intro:not([data-phase="greeting"]) .intro-greeting {
-  animation: intro-fade 400ms ease both;
+  animation: intro-fade var(--dur-base) var(--ease-out) both;
 }
 
+/* Fills from left to right for exactly as long as the greeting shows. */
+.intro-bar {
+  position: relative;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--rule);
+}
+.intro-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--blue);
+  transform-origin: left;
+  animation: intro-load var(--greet, 1800ms) var(--ease-in-out) both;
+}
+
+/* ---------------- the pile ---------------- */
+
 .intro-stack {
+  /* How far the pile fans out sideways; narrower on phones so the outer
+     photos stay on screen. */
+  --spread: 1;
   position: relative;
   width: min(56vw, 240px);
-  aspect-ratio: 5 / 6;
-  transition: transform 800ms cubic-bezier(0.65, 0, 0.35, 1);
+  /* Same shape as the hero cards, so a polaroid lands without stretching. */
+  aspect-ratio: 4 / 5;
+  transition: transform var(--dur-slow) var(--ease-in-out);
 }
-.intro[data-phase="sentence"] .intro-stack,
-.intro[data-phase="leaving"] .intro-stack {
+@media (max-width: 480px) {
+  .intro-stack { --spread: 0.55; }
+}
+.intro[data-phase="sentence"] .intro-stack {
   transform: translateY(36svh) scale(0.38);
 }
 
@@ -48,34 +88,65 @@ html[data-intro="skip"] .intro { display: none; }
   position: absolute;
   inset: 0;
   padding: 8px 8px 30px;
+  border-radius: 3px;
   background: var(--ground-soft);
-  box-shadow: 0 18px 40px -18px color-mix(in oklab, var(--ink) 45%, transparent);
+  box-shadow: var(--card-shadow);
+  /* Waiting below the screen, turned the other way. */
   opacity: 0;
-  transform: rotate(var(--r));
+  transform: translate(calc(var(--px) * var(--spread)), calc(var(--py) + 60svh)) rotate(calc(var(--r) * -3));
+  transition:
+    transform var(--dur-slow) var(--ease-out),
+    opacity var(--dur-base) var(--ease-out);
+  transition-delay: calc(var(--i) * 180ms);
 }
 .intro:not([data-phase="greeting"]) .intro-polaroid {
-  animation: intro-fly 750ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: calc(var(--i) * 180ms);
+  opacity: 1;
+  transform: translate(calc(var(--px) * var(--spread)), var(--py)) rotate(var(--r));
 }
-.intro-polaroid > div { position: relative; width: 100%; height: 100%; overflow: hidden; }
+.intro[data-phase="leaving"] .intro-polaroid {
+  padding: 0;
+  /* Scaled down by --ts on arrival, so divide to end at the cards' 22px. */
+  border-radius: calc(22px / var(--ts, 1));
+  transform: translate(var(--tx, 0), var(--ty, 0)) rotate(var(--tr, 0deg)) scale(var(--ts, 1));
+  transition:
+    transform var(--dur-slow) var(--ease-in-out),
+    padding var(--dur-slow) var(--ease-in-out),
+    border-radius var(--dur-slow) var(--ease-in-out);
+  transition-delay: calc(var(--i) * 60ms);
+}
+/* The middle hero card lies on top; match it before the hand-over. */
+.intro[data-phase="leaving"] .intro-polaroid:nth-child(2) { z-index: 3; }
+
+.intro-polaroid > div {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+/* ---------------- sentence + skip ---------------- */
 
 .intro-sentence {
-  max-width: 18ch;
+  max-width: 22ch;
   padding: 0 1.5rem;
   text-align: center;
   font-family: var(--font-display);
   font-size: clamp(2rem, 5vw, 4rem);
   line-height: 1.05;
   text-transform: uppercase;
+  text-wrap: balance;
   color: var(--ink);
   opacity: 0;
   transform: translateY(12px);
-  transition: opacity 600ms ease 500ms, transform 600ms ease 500ms;
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
 }
-.intro[data-phase="sentence"] .intro-sentence,
-.intro[data-phase="leaving"] .intro-sentence {
+.intro[data-phase="sentence"] .intro-sentence {
   opacity: 1;
   transform: none;
+  transition-delay: 400ms;
 }
 
 .intro-skip {
@@ -88,9 +159,11 @@ html[data-intro="skip"] .intro { display: none; }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--label);
+  transition: color var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
 }
 .intro-skip:hover { color: var(--blue); }
 .intro-skip:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
+.intro[data-phase="leaving"] .intro-skip { opacity: 0; }
 
 @keyframes intro-rise {
   from { opacity: 0; transform: translateY(14px); }
@@ -102,9 +175,9 @@ html[data-intro="skip"] .intro { display: none; }
   to   { opacity: 0; transform: translateY(-12px); }
 }
 
-@keyframes intro-fly {
-  from { opacity: 0; transform: translateY(60svh) rotate(calc(var(--r) * -3)); }
-  to   { opacity: 1; transform: rotate(var(--r)); }
+@keyframes intro-load {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -26,3 +26,9 @@ export const NAV_LINKS: NavLink[] = [
 export function isActiveRoute(pathname: string, href: string): boolean {
   return href === "/" ? pathname === "/" : pathname.startsWith(href);
 }
+
+/** The legal pages, linked small at the bottom of every page. */
+export const LEGAL_LINKS: NavLink[] = [
+  { href: "/impressum", label: "Impressum" },
+  { href: "/datenschutz", label: "Datenschutz" },
+];

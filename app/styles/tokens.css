@@ -25,8 +25,18 @@
     0 1px 2px rgb(17 17 17 / 0.06),
     0 18px 40px -18px rgb(17 17 17 / 0.35);
 
-  /* A springy ease-out that overshoots a little, like the reference site. */
+  /* Motion. Every transition and animation on the site picks one curve and
+     one duration from here, so the whole site moves with the same feel.
+     ease-out:    things arriving (reveals, fly-ins, slides)
+     ease-in-out: things travelling from one place to another
+     ease-spring: things that respond to a hand (hover, open) — overshoots a
+                  little, like the reference site */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-spring: linear(0, 0.3 6%, 0.8 14%, 1.06 21%, 1.11 26%, 1.07 33%, 1 44%, 0.98 52%, 1 70%, 1);
+  --dur-fast: 250ms;  /* colour, small state changes */
+  --dur-base: 500ms;  /* cards, slides, sheets */
+  --dur-slow: 900ms;  /* entrances and long journeys */
 }
 
 @theme inline {

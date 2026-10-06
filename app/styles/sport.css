@@ -1,0 +1,79 @@
+/* ============================================================
+   SPORT
+   The dot menu fixed to the right edge (MomentRail). One dot per
+   moment; the current one (aria-current) is larger and blue and
+   shows its year. The others show theirs on hover or focus.
+   Only from lg up — below that the page is a plain scroll.
+   ============================================================ */
+
+.moment-rail {
+  position: fixed;
+  top: 50%;
+  right: clamp(1rem, 2.5vw, 2.25rem);
+  z-index: 40;
+  display: none;
+  transform: translateY(-50%);
+}
+
+@media (min-width: 1024px) {
+  .moment-rail { display: block; }
+}
+
+.moment-rail ol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.moment-rail a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  /* A generous hit area around a small dot. */
+  padding: 0.4rem 0.25rem 0.4rem 0.75rem;
+  border-radius: 999px;
+}
+.moment-rail a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+.moment-rail-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  color: var(--label);
+  opacity: 0;
+  transform: translateX(6px);
+  transition:
+    opacity var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.moment-rail-dot {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--ink-faint);
+  transform: scale(0.5);
+  transition:
+    transform var(--dur-base) var(--ease-spring),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.moment-rail a:hover .moment-rail-label,
+.moment-rail a:focus-visible .moment-rail-label,
+.moment-rail a[aria-current] .moment-rail-label {
+  opacity: 1;
+  transform: none;
+}
+.moment-rail a:hover .moment-rail-dot { background: var(--blue-light); transform: scale(0.7); }
+
+.moment-rail a[aria-current] .moment-rail-label { color: var(--blue); }
+.moment-rail a[aria-current] .moment-rail-dot { background: var(--blue); transform: scale(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .moment-rail-label,
+  .moment-rail-dot { transition: none; }
+}

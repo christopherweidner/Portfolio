@@ -14,13 +14,13 @@ export default function Blog() {
   return (
     <main className="flex-1 px-6 pb-24 pt-12 sm:px-10">
       <div className="mx-auto max-w-6xl">
-        <h1 className="reveal font-display text-display uppercase leading-[0.9]">Blog</h1>
-        <p className="mt-4 max-w-[52ch] text-[15px] leading-relaxed">
+        <h1 className="reveal text-center font-display text-display uppercase leading-[0.9]">Blog</h1>
+        <p className="mx-auto mt-4 max-w-[52ch] text-center text-[15px] leading-relaxed">
           Notes on building software, sport and what I am learning.
         </p>
 
         {posts.length === 0 ? (
-          <p className="mt-14 text-ink-soft">Nothing here yet.</p>
+          <p className="mt-14 text-center text-ink-soft">Nothing here yet.</p>
         ) : (
           <ul className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
             {posts.map((post, i) => (

@@ -21,8 +21,8 @@
   background: color-mix(in oklab, var(--ink) 45%, transparent);
 }
 
-.project-sheet[open] { animation: sheet-in 450ms var(--ease-spring) both; }
-.project-sheet[open]::backdrop { animation: backdrop-in 250ms ease both; }
+.project-sheet[open] { animation: sheet-in var(--dur-base) var(--ease-spring) both; }
+.project-sheet[open]::backdrop { animation: backdrop-in var(--dur-fast) var(--ease-out) both; }
 
 @keyframes sheet-in {
   from { opacity: 0; transform: translateY(24px) scale(0.96); }
