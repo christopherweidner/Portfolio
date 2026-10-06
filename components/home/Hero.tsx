@@ -8,13 +8,13 @@ import { HERO } from "@/content/home";
 export default function Hero() {
   return (
     <section className="relative isolate flex min-h-page flex-col items-center justify-center overflow-x-clip px-4 pb-16 pt-16 text-center">
-      <h1 className="font-display text-giant uppercase leading-[0.85]">{HERO.name}</h1>
+      <h1 className="font-display text-giant uppercase leading-[1]">{HERO.name}</h1>
 
       <div className="mt-[clamp(1rem,3vw,2.5rem)]">
         <HeroPhotos />
       </div>
 
-      <p className="mt-[clamp(3rem,7vw,5.5rem)] font-display text-display uppercase leading-[0.9] text-ink-faint">
+      <p className="mt-[clamp(3rem,7vw,5.5rem)] font-display text-display uppercase leading-[1.05] text-ink-faint">
         {HERO.subtitle}
       </p>
 
