@@ -1,0 +1,38 @@
+/* ============================================================
+   CARDS
+   The one card look: rounded, soft shadow, a slight tilt set
+   per card through --tilt. Interactive cards straighten and
+   lift on hover or keyboard focus.
+   ============================================================ */
+
+.tilt-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  /* Set --card-bg to change the fill: this rule is unlayered, so a Tailwind
+     bg-* utility (in @layer utilities) would lose against it. */
+  background: var(--card-bg, var(--ground));
+  box-shadow: var(--card-shadow);
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tilt-card[data-interactive]:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+  transform: translateY(-6px) rotate(0deg);
+}
+
+@media (hover: hover) {
+  .tilt-card[data-interactive]:hover {
+    transform: translateY(-6px) rotate(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt-card { transition: none; }
+  .tilt-card[data-interactive]:hover,
+  .tilt-card[data-interactive]:focus-visible {
+    transform: rotate(var(--tilt, 0deg));
+  }
+}

@@ -14,3 +14,6 @@ export const DRIFT = {
 
 /** Delay between staggered entrance elements, in ms. */
 export const REVEAL_STEP = 280;
+
+/** Tilts for card grids, cycled by index so neighbours lean differently. */
+export const GRID_TILTS = [-2, 1.5, -1, 2] as const;

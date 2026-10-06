@@ -13,9 +13,9 @@ export type Project = {
   title: string;
   /** Small mono text beside the title. Leave empty to show nothing. */
   meta: string;
-  /** One or two lines, revealed when the row is opened. */
+  /** One or two lines, shown on the card (clamped to three lines). */
   summary: string;
-  /** A live URL, if there is one. Rows without it have nothing to link to. */
+  /** A live URL, if there is one. Cards without it are not links. */
   href?: string;
   /** Screenshots live in /public/projects/. */
   image?: string;
