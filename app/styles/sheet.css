@@ -1,0 +1,40 @@
+/* ============================================================
+   PROJECT SHEET
+   The large panel a project opens into. A native modal <dialog>:
+   it traps focus, closes on Escape and returns focus itself.
+   ============================================================ */
+
+.project-sheet {
+  width: min(56rem, calc(100vw - 2rem));
+  max-height: 88vh;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 28px;
+  background: var(--ground);
+  color: var(--ink-soft);
+  box-shadow: var(--card-shadow);
+  overflow: auto;
+}
+
+.project-sheet::backdrop {
+  background: color-mix(in oklab, var(--ink) 45%, transparent);
+}
+
+.project-sheet[open] { animation: sheet-in 450ms var(--ease-spring) both; }
+.project-sheet[open]::backdrop { animation: backdrop-in 250ms ease both; }
+
+@keyframes sheet-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.96); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes backdrop-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-sheet[open],
+  .project-sheet[open]::backdrop { animation: none; }
+}

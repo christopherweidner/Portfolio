@@ -2,6 +2,7 @@
 
 import { useCallback, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import ProjectCard from "@/components/projects/ProjectCard";
+import ProjectSheet from "@/components/projects/ProjectSheet";
 import type { Project } from "@/content/projects";
 import { offsetFrom, wrapIndex } from "@/lib/carousel";
 
@@ -21,6 +22,7 @@ const roundButton =
 export default function FeaturedProjects({ projects }: { projects: Project[] }) {
   const count = projects.length;
   const [active, setActive] = useState(0);
+  const [sheet, setSheet] = useState<number | null>(null);
   const dragStart = useRef<number | null>(null);
   const swiped = useRef(false);
 
@@ -98,7 +100,11 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
               onDragStart={(e) => e.preventDefault()}
               className="carousel-slide"
             >
-              <ProjectCard project={project} tilt={offset * NEIGHBOUR_TILT} />
+              <ProjectCard
+                project={project}
+                tilt={offset * NEIGHBOUR_TILT}
+                onOpen={offset === 0 ? () => setSheet(i) : undefined}
+              />
             </div>
           );
         })}
@@ -119,6 +125,8 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
       <p aria-live="polite" className="sr-only">
         {projects[active].title}, {active + 1} of {count}
       </p>
+
+      <ProjectSheet project={sheet === null ? null : projects[sheet]} onClose={() => setSheet(null)} />
     </section>
   );
 }
