@@ -1,9 +1,9 @@
 /**
  * The site's navigation.
  *
- * One list, read by both the desktop dock and the mobile menu. They look
- * nothing alike and share no markup — but adding a page must never mean
- * editing two files, so the links and the active-route rule live here.
+ * One list, read by the top bar (components/nav/TopBar.tsx). Home is reached
+ * through the name in the bar, so it is not listed. Adding a page must never
+ * mean editing two files, so the links and the active-route rule live here.
  */
 
 export type NavLink = {
@@ -12,11 +12,10 @@ export type NavLink = {
 };
 
 export const NAV_LINKS: NavLink[] = [
-  { href: "/", label: "Home" },
   { href: "/about", label: "About" },
-  { href: "/sport", label: "Sport" },
-  { href: "/learning", label: "Learning" },
   { href: "/projects", label: "Projects" },
+  { href: "/blog", label: "Blog" },
+  { href: "/sport", label: "Sport" },
   { href: "/contact", label: "Contact" },
 ];
 

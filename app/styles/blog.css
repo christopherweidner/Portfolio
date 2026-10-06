@@ -1,0 +1,67 @@
+/* ============================================================
+   BLOG ARTICLE
+   Typography for rendered Markdown. Scoped to .prose-post so it
+   never leaks into the rest of the site.
+   ============================================================ */
+
+.prose-post {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.prose-post > * + * { margin-top: 1.25em; }
+
+.prose-post h2,
+.prose-post h3 {
+  font-family: var(--font-serif);
+  line-height: 1.15;
+  margin-top: 2em;
+}
+.prose-post h2 { font-size: 2rem; }
+.prose-post h3 { font-size: 1.5rem; }
+
+.prose-post a {
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-post a:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+.prose-post ul,
+.prose-post ol { padding-left: 1.25em; }
+.prose-post ul { list-style: disc; }
+.prose-post ol { list-style: decimal; }
+.prose-post li + li { margin-top: 0.4em; }
+
+.prose-post blockquote {
+  border-left: 2px solid var(--blue);
+  padding-left: 1em;
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-style: italic;
+  color: var(--ink);
+}
+
+.prose-post code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--ground-soft);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
+.prose-post pre {
+  overflow-x: auto;
+  background: var(--ground-soft);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 1em;
+}
+.prose-post pre code { border: 0; padding: 0; background: none; }
+
+.prose-post img { max-width: 100%; height: auto; border-radius: 6px; }
+.prose-post hr { border: 0; border-top: 1px solid var(--rule); }

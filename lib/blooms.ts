@@ -59,10 +59,10 @@ export const BLOOMS: Record<string, Bloom[]> = {
   ],
 
   /**
-   * Learning — two tall blooms bleeding in from the sides, framing a reading
+   * Blog — two tall blooms bleeding in from the sides, framing a reading
    * column. Long prose lives here and nothing may sit behind the text.
    */
-  "/learning": [
+  "/blog": [
     { x: -8, y: 34, sx: 0.88, sy: 1.25, blur: 100, opacity: 0.52, speed: 45 },
     { x: 108, y: 64, sx: 0.88, sy: 1.25, blur: 100, opacity: 0.5, speed: 55, tone: "light" },
     { x: 50, y: -16, sx: 1.25, sy: 0.7, blur: 94, opacity: 0.3, speed: 67 },
@@ -98,5 +98,6 @@ export const BLOOMS: Record<string, Bloom[]> = {
 };
 
 export function bloomsFor(pathname: string): Bloom[] {
-  return BLOOMS[pathname] ?? BLOOMS.default;
+  const section = `/${pathname.split("/")[1] ?? ""}`;
+  return BLOOMS[pathname] ?? BLOOMS[section] ?? BLOOMS.default;
 }
