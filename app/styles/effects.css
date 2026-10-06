@@ -8,7 +8,7 @@
 /* ---------------- media ----------------
    A photo frame that shows a cobalt placeholder until a real image exists.
    The angle is per-item via --pa, so adjacent placeholders differ.
-   Shared by the sport timeline plate and project cards.
+   Shared by the Sport photos and project cards.
 --------------------------------------- */
 
 .media {

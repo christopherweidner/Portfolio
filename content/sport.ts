@@ -1,18 +1,16 @@
 /**
  * Editorial content for the Sport page.
  *
- * This is the only file you need to edit to change what the timeline says.
- * Add, remove or reorder entries and the layout follows — the track spaces
- * itself from the number of moments.
+ * This is the only file you need to edit to change what the Sport page says.
+ * Add, remove or reorder entries and the layout follows — the page lays out one
+ * section per moment, alternating sides.
  *
  * TODO: every year below is a placeholder. Replace them.
  */
 
 export type Moment = {
-  /** Printed under the timeline track. */
+  /** The giant year shown beside the photo. */
   year: string;
-  /** The huge ghosted words behind the text. "\n" forces a line break. */
-  era: string;
   /** Small mono label above the title. */
   eyebrow: string;
   title: string;
@@ -25,16 +23,19 @@ export type Moment = {
   angle?: string;
   /**
    * The photo's own aspect ratio, as a CSS value: "3/2" for landscape,
-   * "2/3" or "3/4" for portrait. The plate is sized from this, so photos are
+   * "2/3" or "3/4" for portrait. The card is sized from this, so photos are
    * never cropped — the frame changes shape instead. Defaults to "3/2".
    */
   aspect?: string;
 };
 
+/** The line under the page title; also the page's meta description. */
+export const SPORT_INTRO =
+  "Twenty hours a week at the Olympic Training Centre in Potsdam, the German national team, and what the water taught me.";
+
 export const MOMENTS: Moment[] = [
   {
     year: "2010",
-    era: "First\nstrokes",
     eyebrow: "01 — Beginning",
     title: "First club, first laps",
     body:
@@ -47,7 +48,6 @@ export const MOMENTS: Moment[] = [
   },
   {
     year: "2015",
-    era: "Into the\nsystem",
     eyebrow: "02 — Potsdam",
     title: "Olympic Training Centre",
     body:
@@ -57,7 +57,6 @@ export const MOMENTS: Moment[] = [
   },
   {
     year: "2018",
-    era: "Twenty hours\na week",
     eyebrow: "03 — The routine",
     title: "Twenty hours in the water",
     body:
@@ -67,7 +66,6 @@ export const MOMENTS: Moment[] = [
   },
   {
     year: "2021",
-    era: "National\nteam",
     eyebrow: "04 — Selection",
     title: "German national team",
     body:
@@ -77,7 +75,6 @@ export const MOMENTS: Moment[] = [
   },
   {
     year: "2022",
-    era: "Junior\nEuropeans",
     eyebrow: "05 — Result",
     title: "Fourth, Junior European Championships",
     body:
@@ -87,7 +84,6 @@ export const MOMENTS: Moment[] = [
   },
   {
     year: "2026",
-    era: "Now",
     eyebrow: "06 — Now",
     title: "Training and building",
     body:

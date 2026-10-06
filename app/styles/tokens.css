@@ -20,7 +20,6 @@
   --ink-faint:   #8A8F98;  /* giant grey display lines — large text only */
   --label:       #0D2A6E;  /* small caps labels */
   --rule:        #E6E6E3;  /* hairlines */
-  --plate:       #C6C6C2;  /* inactive markers */
 
   --card-shadow:
     0 1px 2px rgb(17 17 17 / 0.06),
@@ -42,7 +41,6 @@
   --color-ink-faint:   var(--ink-faint);
   --color-label:       var(--label);
   --color-rule:        var(--rule);
-  --color-marker:      var(--plate);
 
   --font-display: var(--font-display-face), Impact, "Arial Narrow", sans-serif;
   --font-sans:    var(--font-sans-face), system-ui, sans-serif;
@@ -51,7 +49,6 @@
   --text-giant:   clamp(3.5rem, 13vw, 11rem);
   --text-display: clamp(2.75rem, 8vw, 6rem);
   --text-section: clamp(2rem, 5vw, 3.25rem);
-  --text-era:     clamp(2.75rem, 6vw, 4.625rem);
 }
 
 /* ---------------- base elements ---------------- */
