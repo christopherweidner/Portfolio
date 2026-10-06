@@ -11,13 +11,12 @@
 :root {
   --ground:      #FFFFFF;  /* page */
   --ground-soft: #F2F2F0;  /* tiles, code, quiet surfaces */
-  --band:        #C9C9C6;  /* the footer band behind the giant white CONTACT */
   --blue:        #1B4FD1;  /* cobalt — the only colour event */
   --blue-light:  #6F8FE8;
   --blue-deep:   #12327F;
   --ink:         #111111;  /* headlines */
   --ink-soft:    #2A2D33;  /* body copy */
-  --ink-faint:   #8A8F98;  /* giant grey display lines — large text only */
+  --ink-faint:   #8A8F98;  /* quiet marks, e.g. the Sport menu's other dots */
   --label:       #0D2A6E;  /* small caps labels */
   --rule:        #E6E6E3;  /* hairlines */
 
@@ -45,7 +44,6 @@
 @theme inline {
   --color-ground:      var(--ground);
   --color-ground-soft: var(--ground-soft);
-  --color-band:        var(--band);
   --color-blue:        var(--blue);
   --color-blue-light:  var(--blue-light);
   --color-blue-deep:   var(--blue-deep);

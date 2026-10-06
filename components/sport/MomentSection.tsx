@@ -10,7 +10,7 @@ type Props = {
 };
 
 /**
- * One station of the Sport story: a grey year or season, the photo as a
+ * One station of the Sport story: a cobalt year or season, the photo as a
  * tilted card overlapping it, and the text beside. Purely presentational.
  */
 export default function MomentSection({ moment, flip }: Props) {
@@ -20,7 +20,7 @@ export default function MomentSection({ moment, flip }: Props) {
     <article className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
       <div className={flip ? "md:order-2" : ""}>
         {/* One size for every label, sized so a season like 2020/2021 still fits one line. */}
-        <p className="select-none whitespace-nowrap font-display text-[clamp(2.75rem,6.5vw,5.25rem)] uppercase leading-[0.85] text-ink-faint">
+        <p className="select-none whitespace-nowrap font-display text-[clamp(2.75rem,6.5vw,5.25rem)] uppercase leading-[0.85] text-blue">
           {moment.year}
         </p>
         <TiltCard tilt={flip ? 3 : -3} className="relative z-10 -mt-[clamp(0.35rem,1vw,0.85rem)]">

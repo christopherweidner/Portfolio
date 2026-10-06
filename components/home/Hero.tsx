@@ -14,7 +14,7 @@ export default function Hero() {
         <HeroPhotos />
       </div>
 
-      <p className="mt-[clamp(3rem,7vw,5.5rem)] font-display text-display uppercase leading-[1.05] text-ink-faint">
+      <p className="mt-[clamp(3rem,7vw,5.5rem)] font-display text-display uppercase leading-[1.05] text-blue">
         {HERO.subtitle}
       </p>
 
