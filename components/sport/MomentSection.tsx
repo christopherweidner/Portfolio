@@ -18,7 +18,7 @@ export default function MomentSection({ moment, flip }: Props) {
     <article className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
       <div className={flip ? "md:order-2" : ""}>
         <p className="select-none font-display text-giant uppercase leading-[0.8] text-ink-faint">{moment.year}</p>
-        <TiltCard tilt={flip ? 3 : -3} className="relative z-10 -mt-[clamp(1.5rem,5vw,4rem)]">
+        <TiltCard tilt={flip ? 3 : -3} className="relative z-10 -mt-[clamp(0.5rem,1.5vw,1.25rem)]">
           <div
             className="media w-full"
             style={{ aspectRatio: moment.aspect ?? "3/2", "--pa": moment.angle ?? "150deg" } as CSSProperties}
