@@ -3,6 +3,7 @@ import { Cormorant_Garamond, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/goog
 import "./globals.css";
 import BloomField from "@/components/BloomField";
 import Nav from "@/components/nav/Nav";
+import { INTRO_GATE_SCRIPT } from "@/lib/intro";
 
 const serif = Cormorant_Garamond({
   variable: "--font-serif-face",
@@ -36,8 +37,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${serif.variable} ${sans.variable} ${mono.variable} h-full antialiased`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: INTRO_GATE_SCRIPT }} />
+      </head>
       <body className="min-h-full flex flex-col bg-ground text-ink-soft">
         <BloomField />
         <div aria-hidden className="grain-field" />

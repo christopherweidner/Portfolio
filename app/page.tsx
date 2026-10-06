@@ -1,6 +1,9 @@
+import Intro from "@/components/home/Intro";
+
 export default function Home() {
   return (
     <main className="flex-1">
+      <Intro />
       <section className="relative h-page overflow-hidden">
         <div className="relative z-10 flex h-full flex-col items-center justify-center gap-6 px-6 text-center">
           <h1 className="reveal font-serif text-display leading-[0.95] tracking-[-0.03em]">
