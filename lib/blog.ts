@@ -39,10 +39,17 @@ function requireString(slug: string, field: string, value: unknown): string {
   return value.trim();
 }
 
+function isRealDate(text: string): boolean {
+  const date = new Date(`${text}T00:00:00Z`);
+  return ISO_DATE.test(text) && !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === text;
+}
+
 /** YAML turns an unquoted 2026-10-06 into a Date; bring it back to text. */
-function toIsoDate(slug: string, value: unknown): string {
-  const text = value instanceof Date ? value.toISOString().slice(0, 10) : value;
-  if (typeof text !== "string" || !ISO_DATE.test(text)) {
+function toIsoDate(slug: string, value: unknown, source: string): string {
+  // YAML rolls 2026-02-30 over to 2026-03-02, so read the date as written.
+  const written = source.match(/^date:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1];
+  const text = value instanceof Date ? (written ?? "") : value;
+  if (typeof text !== "string" || !isRealDate(text)) {
     throw new Error(`content/blog/${slug}.md: "date" must be YYYY-MM-DD`);
   }
   return text;
@@ -53,7 +60,7 @@ export function parsePost(slug: string, source: string): Post {
   return {
     slug,
     title: requireString(slug, "title", data.title),
-    date: toIsoDate(slug, data.date),
+    date: toIsoDate(slug, data.date, source),
     summary: requireString(slug, "summary", data.summary),
     draft: data.draft === true,
     html: marked.parse(content, { async: false }),
@@ -68,16 +75,22 @@ function resolve(options: Options = {}) {
 }
 
 function readPost(dir: string, slug: string): Post {
-  return parsePost(slug, readFileSync(join(dir, `${slug}.md`), "utf8"));
+  return parsePost(slug, readFileSync(join(/*turbopackIgnore: true*/ dir, `${slug}.md`), "utf8"));
 }
 
 export function getAllPosts(options?: Options): PostMeta[] {
   const { dir, includeDrafts } = resolve(options);
-  if (!existsSync(dir)) return [];
+  if (!existsSync(/*turbopackIgnore: true*/ dir)) return [];
 
-  return readdirSync(dir)
+  return readdirSync(/*turbopackIgnore: true*/ dir)
     .filter((file) => file.endsWith(".md"))
-    .map((file) => readPost(dir, file.slice(0, -3)))
+    .map((file) => {
+      const slug = file.slice(0, -3);
+      if (!SLUG.test(slug)) {
+        throw new Error(`content/blog/${file}: file name must be lowercase letters, digits and hyphens`);
+      }
+      return readPost(dir, slug);
+    })
     .filter((post) => includeDrafts || !post.draft)
     .sort((a, b) => b.date.localeCompare(a.date))
     .map((post) => ({ slug: post.slug, title: post.title, date: post.date, summary: post.summary, draft: post.draft }));

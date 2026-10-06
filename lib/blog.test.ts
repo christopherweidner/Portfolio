@@ -1,13 +1,19 @@
-import { mkdtempSync, writeFileSync } from "node:fs";
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { describe, expect, it } from "vitest";
+import { afterAll, describe, expect, it } from "vitest";
 import { formatDate, getAllPosts, getPost, parsePost } from "./blog";
 
 const post = (fm: string, body = "Hello **world**.") => `---\n${fm}\n---\n\n${body}\n`;
 
+const fixtures: string[] = [];
+afterAll(() => {
+  for (const dir of fixtures) rmSync(dir, { recursive: true, force: true });
+});
+
 function fixtureDir(files: Record<string, string>): string {
   const dir = mkdtempSync(join(tmpdir(), "blog-"));
+  fixtures.push(dir);
   for (const [name, content] of Object.entries(files)) writeFileSync(join(dir, name), content);
   return dir;
 }
@@ -25,6 +31,11 @@ describe("parsePost", () => {
 
   it("names the file when a field is missing", () => {
     expect(() => parsePost("broken", post("title: X\ndate: 2026-10-06"))).toThrow(/broken\.md.*summary/);
+  });
+
+  it("rejects an impossible calendar date", () => {
+    expect(() => parsePost("bad", post("title: X\ndate: 2026-02-30\nsummary: S"))).toThrow(/bad\.md.*"date" must be YYYY-MM-DD/);
+    expect(() => parsePost("bad", post('title: X\ndate: "2026-13-45"\nsummary: S'))).toThrow(/"date" must be YYYY-MM-DD/);
   });
 
   it("rejects a malformed date", () => {
@@ -60,6 +71,11 @@ describe("getAllPosts / getPost", () => {
     expect(getPost("missing", { dir, includeDrafts: false })).toBeNull();
     expect(getPost("secret", { dir, includeDrafts: false })).toBeNull();
     expect(getPost("../package", { dir, includeDrafts: true })).toBeNull();
+  });
+
+  it("throws on a file name that is not a valid slug", () => {
+    const bad = fixtureDir({ "My Post.md": post("title: T\ndate: 2026-01-01\nsummary: S") });
+    expect(() => getAllPosts({ dir: bad })).toThrow(/My Post\.md.*lowercase letters, digits and hyphens/);
   });
 
   it("returns an empty list when the folder does not exist", () => {

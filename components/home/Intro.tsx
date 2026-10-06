@@ -94,7 +94,7 @@ export default function Intro() {
             style={{ "--i": i, "--r": ROTATIONS[i % ROTATIONS.length] } as React.CSSProperties}
           >
             <div>
-              <Image src={photo.src} alt={photo.alt} fill sizes="240px" priority className="object-cover" />
+              <Image src={photo.src} alt={photo.alt} fill sizes="240px" fetchPriority="high" className="object-cover" />
             </div>
           </figure>
         ))}

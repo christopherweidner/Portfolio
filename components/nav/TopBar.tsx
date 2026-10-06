@@ -24,7 +24,7 @@ export default function TopBar() {
           Christopher Weidner
         </Link>
 
-        <ul className="no-scrollbar -mx-4 flex gap-6 overflow-x-auto px-4 sm:mx-0 sm:px-0">
+        <ul className="no-scrollbar -mx-4 -my-2 flex gap-6 overflow-x-auto px-4 py-2 sm:m-0 sm:overflow-visible sm:p-0">
           {NAV_LINKS.map(({ href, label }) => {
             const active = isActiveRoute(pathname, href);
             return (
