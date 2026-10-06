@@ -27,7 +27,7 @@ export default function Contact() {
           </p>
         ))}
         <p className="reveal font-mono text-[11px] uppercase tracking-[0.14em] text-label" style={{ "--d": "380ms" } as CSSProperties}>
-          Email and profiles below ↓
+          Email and profiles below <span aria-hidden>↓</span>
         </p>
       </div>
     </main>

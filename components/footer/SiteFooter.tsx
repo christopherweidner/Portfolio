@@ -1,7 +1,7 @@
 import { EMAIL, SOCIALS } from "@/content/contact";
 
 const link =
-  "font-display uppercase tracking-[0.04em] text-ink transition-colors hover:text-blue focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue";
+  "font-display uppercase tracking-[0.04em] text-ink transition-colors hover:text-blue-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue";
 
 /**
  * The CONTACT band at the bottom of every page. The giant word is decoration;
