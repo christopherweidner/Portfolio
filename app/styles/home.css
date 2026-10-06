@@ -2,12 +2,14 @@
    HOME
    The hero's fanned photos. Each card is offset by --y and
    overlaps its neighbour; on load they fan out from a stack.
+   With a mouse they then follow the cursor (HeroPhotos).
    ============================================================ */
 
 .hero-fan { display: flex; justify-content: center; }
 
 .hero-fan-item {
   --card-w: clamp(7rem, 22vw, 15rem);
+  position: relative;
   width: var(--card-w);
   transform: translateY(var(--y, 0));
   animation: fan-in 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -24,4 +26,17 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hero-fan-item { animation: none; }
+}
+
+/* The part of each photo that follows the cursor. HeroPhotos writes
+   `translate` and `rotate` here; the slot keeps the resting place. */
+.hero-trail {
+  transition:
+    translate 900ms var(--ease-spring),
+    rotate 900ms var(--ease-spring);
+  will-change: translate, rotate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-trail { transition: none; }
 }

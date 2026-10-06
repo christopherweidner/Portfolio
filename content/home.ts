@@ -19,8 +19,9 @@ export const INTRO = {
   ],
 };
 
-/** The giant lines at the top of the home page. */
+/** The lines at the top of the home page. */
 export const HERO = {
+  location: "Berlin, Deutschland",
   name: "Christopher Weidner",
   subtitle: "Athlete, Builder & Writer",
 };

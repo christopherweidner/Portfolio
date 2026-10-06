@@ -57,7 +57,7 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
   };
 
   return (
-    <section aria-labelledby="featured-projects" className="overflow-x-clip px-6 py-24 sm:px-10">
+    <section aria-labelledby="featured-projects" className="overflow-x-clip px-6 py-28 sm:px-10 sm:py-44">
       <div className="text-center">
         <h2 id="featured-projects" className="font-display text-section uppercase leading-none">
           Featured Projects
@@ -83,7 +83,7 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
             swiped.current = false;
           }
         }}
-        className="carousel mx-auto select-none mt-14 max-w-5xl touch-pan-y rounded-[28px] focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-blue"
+        className="carousel mx-auto select-none mt-20 max-w-5xl touch-pan-y rounded-[28px] focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-blue"
       >
         {projects.map((project, i) => {
           const offset = offsetFrom(active, i, count);
@@ -110,7 +110,7 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
         })}
       </div>
 
-      <div className="mt-10 flex items-center justify-center gap-5">
+      <div className="mt-14 flex items-center justify-center gap-5">
         <button type="button" onClick={() => go(-1)} aria-label="Previous project" className={roundButton}>
           ←
         </button>

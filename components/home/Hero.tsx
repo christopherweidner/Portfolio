@@ -1,39 +1,30 @@
-import Image from "next/image";
-import type { CSSProperties } from "react";
-import TiltCard from "@/components/ui/TiltCard";
-import { HERO, INTRO } from "@/content/home";
-
-/** Tilt and vertical offset per photo, left to right. */
-const FAN = [
-  { tilt: -9, y: "1.5rem" },
-  { tilt: -2, y: "0rem" },
-  { tilt: 7, y: "2rem" },
-];
+import HeroPhotos from "@/components/home/HeroPhotos";
+import { EMAIL } from "@/content/contact";
+import { HERO } from "@/content/home";
 
 /**
- * Name, three fanned photos, what I do. The photos are the intro's, so the
- * stack the intro ends on reappears here spread out.
+ * Where I am, my name, three photos that follow the cursor, what I do.
  */
 export default function Hero() {
   return (
-    <section className="flex min-h-page flex-col items-center justify-center overflow-x-clip px-4 py-12 text-center">
-      <h1 className="font-display text-giant uppercase leading-[0.85]">{HERO.name}</h1>
-
-      <div aria-hidden className="hero-fan -mt-[clamp(0.5rem,3vw,2.5rem)]">
-        {INTRO.photos.map((photo, i) => (
-          <div
-            key={photo.src}
-            className="hero-fan-item"
-            style={{ "--i": i, "--y": FAN[i % FAN.length].y } as CSSProperties}
-          >
-            <TiltCard tilt={FAN[i % FAN.length].tilt} className="aspect-[4/5] w-full">
-              <Image src={photo.src} alt="" fill sizes="(min-width: 1024px) 15rem, 22vw" className="object-cover" />
-            </TiltCard>
-          </div>
-        ))}
+    <section className="relative flex min-h-page flex-col items-center justify-center overflow-x-clip px-4 pb-28 pt-16 text-center">
+      <div className="reveal flex flex-col items-center gap-1.5">
+        <p className="font-display text-[15px] uppercase tracking-[0.06em] text-ink">{HERO.location}</p>
+        <a
+          href={`mailto:${EMAIL}`}
+          className="text-[12.5px] text-ink-soft transition-colors hover:text-blue focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue"
+        >
+          {EMAIL}
+        </a>
       </div>
 
-      <p className="mt-[clamp(1.5rem,4vw,3rem)] font-display text-display uppercase leading-[0.9] text-ink-faint">
+      <h1 className="mt-[clamp(2.5rem,6vw,4.5rem)] font-display text-giant uppercase leading-[0.85]">{HERO.name}</h1>
+
+      <div className="mt-[clamp(1rem,3vw,2.5rem)]">
+        <HeroPhotos />
+      </div>
+
+      <p className="mt-[clamp(3rem,7vw,5.5rem)] font-display text-display uppercase leading-[0.9] text-ink-faint">
         {HERO.subtitle}
       </p>
     </section>

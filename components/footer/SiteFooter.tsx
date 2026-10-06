@@ -9,7 +9,7 @@ const link =
  */
 export default function SiteFooter() {
   return (
-    <footer aria-labelledby="site-footer-heading" className="overflow-hidden bg-band px-6 pb-10 pt-14 text-center">
+    <footer aria-labelledby="site-footer-heading" className="overflow-hidden bg-band px-6 pb-12 pt-24 text-center">
       <h2 id="site-footer-heading" className="sr-only">
         Contact
       </h2>
@@ -17,7 +17,7 @@ export default function SiteFooter() {
         Contact
       </p>
 
-      <a href={`mailto:${EMAIL}`} className={`mt-8 inline-block text-[clamp(1.1rem,2.6vw,1.5rem)] ${link}`}>
+      <a href={`mailto:${EMAIL}`} className={`mt-10 inline-block text-[clamp(1.1rem,2.6vw,1.5rem)] ${link}`}>
         {EMAIL}
       </a>
 
