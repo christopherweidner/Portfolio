@@ -9,8 +9,8 @@
    photo's slot in the hero fan, losing its frame on the way, so it
    arrives looking exactly like the hero card it hands over to —
    same place, size, tilt, corner radius and shadow. The pile is
-   already in hero order (left, middle on top, right), so no photo
-   crosses another.
+   already in hero order (left, middle, right), so no photo crosses
+   another. Each one lands on top of the one before, as in the fan.
    ============================================================ */
 
 .intro {
@@ -124,8 +124,6 @@ html[data-intro] .intro { display: none; }
     box-shadow var(--dur-slow) var(--ease-in-out);
   transition-delay: calc(var(--i) * 60ms);
 }
-/* The middle hero card lies on top; so does the middle polaroid, throughout. */
-.intro-polaroid:nth-child(2) { z-index: 3; }
 
 .intro-polaroid > div {
   position: relative;
