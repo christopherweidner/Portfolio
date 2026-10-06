@@ -37,6 +37,6 @@ export const SOCIALS: Social[] = [
  * and a working one. A bare address gets nothing.
  */
 export const INVITATION = [
-  "I would rather hear from you than not. Founders building something in health, coaches, students who train and study at the same time, and anyone who wants to argue about whether prevention is worth the effort — all welcome.",
+  "I would love to hear from you. Founders building something in health, coaches, students who train and study at the same time, and anyone who wants to connect — all welcome.",
   "If you are not sure it is worth sending, send it anyway. I read everything and I answer.",
 ];

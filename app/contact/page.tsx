@@ -19,7 +19,7 @@ export default function Contact() {
     <main className="flex-1">
       <section className="flex min-h-page flex-col items-center justify-center px-6 py-24 text-center">
         <div className="flex w-full max-w-[62ch] flex-col items-center gap-8">
-          <h1 className="reveal font-mono text-[11px] uppercase tracking-[0.16em] text-label">Get in touch</h1>
+          <h1 className="reveal font-mono text-[11px] uppercase tracking-[0.16em] text-label!">Get in touch</h1>
 
           <div className="flex flex-col gap-4">
             {INVITATION.map((line, i) => (

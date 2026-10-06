@@ -19,6 +19,7 @@ const focusRing = "focus-visible:outline-2 focus-visible:outline-offset-4 focus-
  */
 export default function ProjectSheet({ project, onClose }: Props) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const pressedBackdrop = useRef(false);
 
   useEffect(() => {
     const element = dialog.current;
@@ -43,9 +44,15 @@ export default function ProjectSheet({ project, onClose }: Props) {
       ref={dialog}
       aria-labelledby="project-sheet-title"
       onClose={onClose}
+      onPointerDown={(event) => {
+        pressedBackdrop.current = event.target === event.currentTarget;
+      }}
       onClick={(event) => {
-        // Only the backdrop is the dialog itself; the content sits in the inner div.
-        if (event.target === event.currentTarget) onClose();
+        // Only the backdrop is the dialog itself; the content sits in the inner
+        // div. Both press and release must land there, so selecting text and
+        // letting go outside does not close the sheet.
+        if (pressedBackdrop.current && event.target === event.currentTarget) onClose();
+        pressedBackdrop.current = false;
       }}
       className="project-sheet"
     >
