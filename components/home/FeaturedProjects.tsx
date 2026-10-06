@@ -28,14 +28,18 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
 
   if (count === 0) return null;
 
-  const onKeyDown = (event: KeyboardEvent) => {
+  const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+    if (event.altKey || event.metaKey || event.ctrlKey || event.shiftKey) return;
     if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
       event.preventDefault();
+      // The centre slide goes inert after the move; keep focus in the carousel.
+      if (event.target !== event.currentTarget) event.currentTarget.focus();
       go(event.key === "ArrowLeft" ? -1 : 1);
     }
   };
 
   const onPointerDown = (event: PointerEvent) => {
+    if (event.button !== 0) return;
     dragStart.current = event.clientX;
     swiped.current = false;
   };
@@ -77,7 +81,7 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
             swiped.current = false;
           }
         }}
-        className="carousel mx-auto mt-14 max-w-5xl touch-pan-y rounded-[28px] focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-blue"
+        className="carousel mx-auto select-none mt-14 max-w-5xl touch-pan-y rounded-[28px] focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-blue"
       >
         {projects.map((project, i) => {
           const offset = offsetFrom(active, i, count);
@@ -91,6 +95,7 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
               aria-hidden={offset !== 0}
               inert={offset !== 0}
               data-offset={shown ? offset : "hidden"}
+              onDragStart={(e) => e.preventDefault()}
               className="carousel-slide"
             >
               <ProjectCard project={project} tilt={offset * NEIGHBOUR_TILT} />
