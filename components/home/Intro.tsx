@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { INTRO } from "@/content/home";
 import { INTRO_SEEN_KEY } from "@/lib/intro";
 
@@ -35,25 +35,33 @@ function markSeen() {
 export default function Intro() {
   const [phase, setPhase] = useState<Phase>("greeting");
 
+  const timers = useRef<number[]>([]);
+
+  const clearTimers = useCallback(() => {
+    timers.current.forEach(window.clearTimeout);
+    timers.current = [];
+  }, []);
+
   const finish = useCallback(() => {
+    clearTimers();
     markSeen();
     setPhase("done");
-  }, []);
+  }, [clearTimers]);
 
   // Phase timers. Already seen (the <head> script marked <html>) means the
   // schedule is just "done" on the next tick — CSS keeps it invisible meanwhile.
   useEffect(() => {
     const skip = document.documentElement.dataset.intro === "skip";
     const schedule: typeof TIMELINE = skip ? [["done", 0]] : TIMELINE;
-    const timers = schedule.map(([next, at]) =>
+    timers.current = schedule.map(([next, at]) =>
       window.setTimeout(() => (next === "done" ? finish() : setPhase(next)), at),
     );
-    return () => timers.forEach(window.clearTimeout);
-  }, [finish]);
+    return clearTimers;
+  }, [finish, clearTimers]);
 
   // Keyboard skip and scroll lock while visible.
   useEffect(() => {
-    if (phase === "done") return;
+    if (phase === "done" || document.documentElement.dataset.intro === "skip") return;
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape" || event.key === "Enter" || event.key === " ") {
         event.preventDefault();

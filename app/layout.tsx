@@ -42,6 +42,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: INTRO_GATE_SCRIPT }} />
+        <noscript>
+          <style>{".intro{display:none}"}</style>
+        </noscript>
       </head>
       <body className="min-h-full flex flex-col bg-ground text-ink-soft">
         <BloomField />
