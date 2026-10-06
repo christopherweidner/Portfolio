@@ -20,13 +20,15 @@ const TIMELINE: [Exclude<Phase, "greeting">, number][] = [
   ["done", 8200],
 ];
 
-/** Where each photo lies in the pile: offset (in % of the photo) and
- *  rotation. Left, middle, right — the same order and lean as the hero fan
- *  they fly into, so no photo crosses another on the way. */
+/** Where each photo lies in the pile: offset (in % of the photo), rotation
+ *  and when it arrives. Left, middle, right — the same order and lean as the
+ *  hero fan they fly into, so no photo crosses another on the way. The middle
+ *  one arrives last, so each photo lands on the one before and the middle
+ *  ends on top, as in the fan. */
 const PILE = [
-  { x: "-42%", y: "5%", r: "-8deg" },
-  { x: "-1%", y: "-3%", r: "-2deg" },
-  { x: "41%", y: "8%", r: "6deg" },
+  { x: "-42%", y: "5%", r: "-8deg", arrives: 0 },
+  { x: "-1%", y: "-3%", r: "-2deg", arrives: 2 },
+  { x: "41%", y: "8%", r: "6deg", arrives: 1 },
 ];
 
 /** How the intro ended: played through (the photos landed in the hero) or skipped. */
@@ -157,7 +159,7 @@ export default function Intro() {
             <figure
               key={photo.src.src}
               className="intro-polaroid"
-              style={{ "--i": i, "--px": pile.x, "--py": pile.y, "--r": pile.r } as CSSProperties}
+              style={{ "--i": pile.arrives, "--px": pile.x, "--py": pile.y, "--r": pile.r } as CSSProperties}
             >
               <div>
                 <Image

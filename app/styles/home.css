@@ -1,7 +1,7 @@
 /* ============================================================
    HOME
    The hero's fanned photos, fixed in the centre. Each card is
-   offset by --y and lies over the one before; on load they fan out
+   offset by --y and overlaps its neighbour, the middle on top; on load they fan out
    from a stack.
 
    While the intro plays the fan is hidden: the intro's polaroids
@@ -34,6 +34,7 @@ html:not([data-intro]) .hero-fan-item,
 html[data-intro="landed"] .hero-fan-item { animation: none; }
 
 .hero-fan-item + .hero-fan-item { margin-left: calc(var(--card-w) * -0.28); }
+.hero-fan-item:nth-child(2) { z-index: 1; }
 
 @keyframes fan-in {
   from { opacity: 0; transform: translateY(40px) scale(0.92); }
