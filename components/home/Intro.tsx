@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { INTRO } from "@/content/home";
 import { coverScale, PHOTO_CARD_ASPECT } from "@/lib/images";
 import { INTRO_SEEN_KEY } from "@/lib/intro";
@@ -16,15 +16,17 @@ const TIMELINE: [Exclude<Phase, "greeting">, number][] = [
   ["photos", GREETING_MS],
   ["sentence", 3600],
   ["leaving", 7000],
-  ["done", 8100],
+  // The flight takes --dur-slow (900ms) plus 120ms of stagger; land with room to spare.
+  ["done", 8200],
 ];
 
-/** Where each photo lies in the pile, back to front: offset (in % of the
- *  photo) and rotation. They overlap, but never sit exactly on each other. */
+/** Where each photo lies in the pile: offset (in % of the photo) and
+ *  rotation. Left, middle, right — the same order and lean as the hero fan
+ *  they fly into, so no photo crosses another on the way. */
 const PILE = [
-  { x: "-42%", y: "-7%", r: "-8deg" },
-  { x: "40%", y: "4%", r: "6deg" },
-  { x: "-2%", y: "9%", r: "-2deg" },
+  { x: "-42%", y: "5%", r: "-8deg" },
+  { x: "-1%", y: "-3%", r: "-2deg" },
+  { x: "41%", y: "8%", r: "6deg" },
 ];
 
 /** How the intro ended: played through (the photos landed in the hero) or skipped. */
@@ -40,23 +42,30 @@ function markSeen(ending: Ending) {
 }
 
 /**
- * Sends each polaroid to its photo's resting place in the hero fan. The
- * pile's untransformed box is centred in the overlay, so the target is the
- * distance from the overlay's centre to the slot's centre, scaled to the
- * slot's width and turned to its tilt.
+ * Sends each polaroid to its photo's resting place in the hero fan. The pile
+ * stays where the sentence shrank it to, so only the polaroids move and each
+ * travels in one straight, even line. Targets are therefore in the pile's
+ * own, scaled coordinates: the distance from its centre to the slot's
+ * centre, divided by the pile's scale. --k is the polaroid's final size on
+ * screen relative to its unscaled size, for the radius and shadow to match
+ * the hero card exactly on arrival.
  */
-function aimAtHero(overlay: HTMLElement, stack: HTMLElement) {
+function aimAtHero(stack: HTMLElement) {
   const slots = document.querySelectorAll<HTMLElement>(".hero-fan-item");
   const polaroids = stack.querySelectorAll<HTMLElement>(".intro-polaroid");
-  const cx = overlay.clientWidth / 2;
-  const cy = overlay.clientHeight / 2;
+  const box = stack.getBoundingClientRect();
+  const scale = box.width / stack.offsetWidth;
+  const cx = box.left + box.width / 2;
+  const cy = box.top + box.height / 2;
   polaroids.forEach((polaroid, i) => {
     const slot = slots[i];
     if (!slot) return;
     const rect = slot.getBoundingClientRect();
-    polaroid.style.setProperty("--tx", `${rect.left + rect.width / 2 - cx}px`);
-    polaroid.style.setProperty("--ty", `${rect.top + rect.height / 2 - cy}px`);
-    polaroid.style.setProperty("--ts", String(rect.width / stack.offsetWidth));
+    const k = rect.width / stack.offsetWidth;
+    polaroid.style.setProperty("--tx", `${(rect.left + rect.width / 2 - cx) / scale}px`);
+    polaroid.style.setProperty("--ty", `${(rect.top + rect.height / 2 - cy) / scale}px`);
+    polaroid.style.setProperty("--ts", String(k / scale));
+    polaroid.style.setProperty("--k", String(k));
     polaroid.style.setProperty("--tr", `${slot.dataset.tilt ?? 0}deg`);
   });
 }
@@ -70,9 +79,9 @@ function aimAtHero(overlay: HTMLElement, stack: HTMLElement) {
 export default function Intro() {
   const [phase, setPhase] = useState<Phase>("greeting");
 
-  const overlay = useRef<HTMLDivElement>(null);
   const stack = useRef<HTMLDivElement>(null);
   const timers = useRef<number[]>([]);
+  const ending = useRef<Ending>("skip");
 
   const clearTimers = useCallback(() => {
     timers.current.forEach(window.clearTimeout);
@@ -80,13 +89,19 @@ export default function Intro() {
   }, []);
 
   const finish = useCallback(
-    (ending: Ending) => {
+    (how: Ending) => {
       clearTimers();
-      markSeen(ending);
+      ending.current = how;
       setPhase("done");
     },
     [clearTimers],
   );
+
+  // Reveal the hero fan in the same commit that removes the overlay, before
+  // the browser paints: the polaroids and the cards never show at once.
+  useLayoutEffect(() => {
+    if (phase === "done") markSeen(ending.current);
+  }, [phase]);
 
   const skip = useCallback(() => finish("skip"), [finish]);
 
@@ -98,7 +113,7 @@ export default function Intro() {
     timers.current = schedule.map(([next, at]) =>
       window.setTimeout(() => {
         if (next === "done") return finish(seen ? "skip" : "landed");
-        if (next === "leaving" && overlay.current && stack.current) aimAtHero(overlay.current, stack.current);
+        if (next === "leaving" && stack.current) aimAtHero(stack.current);
         setPhase(next);
       }, at),
     );
@@ -129,7 +144,7 @@ export default function Intro() {
   const { greeting, sentence, photos } = INTRO;
 
   return (
-    <div ref={overlay} className="intro" data-phase={phase} onClick={skip} role="presentation">
+    <div className="intro" data-phase={phase} onClick={skip} role="presentation">
       <div className="intro-greeting" style={{ "--greet": `${GREETING_MS}ms` } as CSSProperties}>
         <p>{greeting}</p>
         <span className="intro-bar" aria-hidden />

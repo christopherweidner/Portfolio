@@ -7,7 +7,10 @@
    In "leaving" the white ground fades away and each polaroid flies
    to the --tx/--ty/--ts/--tr that Intro.tsx measured from its
    photo's slot in the hero fan, losing its frame on the way, so it
-   arrives looking exactly like the hero card it hands over to.
+   arrives looking exactly like the hero card it hands over to —
+   same place, size, tilt, corner radius and shadow. The pile is
+   already in hero order (left, middle on top, right), so no photo
+   crosses another.
    ============================================================ */
 
 .intro {
@@ -80,7 +83,9 @@ html[data-intro] .intro { display: none; }
 @media (max-width: 480px) {
   .intro-stack { --spread: 0.55; }
 }
-.intro[data-phase="sentence"] .intro-stack {
+/* Stays put while leaving: the polaroids' targets are measured from here. */
+.intro[data-phase="sentence"] .intro-stack,
+.intro[data-phase="leaving"] .intro-stack {
   transform: translateY(36svh) scale(0.38);
 }
 
@@ -105,17 +110,22 @@ html[data-intro] .intro { display: none; }
 }
 .intro[data-phase="leaving"] .intro-polaroid {
   padding: 0;
-  /* Scaled down by --ts on arrival, so divide to end at the cards' 22px. */
-  border-radius: calc(22px / var(--ts, 1));
+  /* Drawn at --k of its size on arrival, so divide to end at the cards'
+     22px corners and their exact shadow (--card-shadow, unscaled). */
+  border-radius: calc(22px / var(--k, 1));
+  box-shadow:
+    0 calc(1px / var(--k, 1)) calc(2px / var(--k, 1)) rgb(17 17 17 / 0.06),
+    0 calc(18px / var(--k, 1)) calc(40px / var(--k, 1)) calc(-18px / var(--k, 1)) rgb(17 17 17 / 0.35);
   transform: translate(var(--tx, 0), var(--ty, 0)) rotate(var(--tr, 0deg)) scale(var(--ts, 1));
   transition:
     transform var(--dur-slow) var(--ease-in-out),
     padding var(--dur-slow) var(--ease-in-out),
-    border-radius var(--dur-slow) var(--ease-in-out);
+    border-radius var(--dur-slow) var(--ease-in-out),
+    box-shadow var(--dur-slow) var(--ease-in-out);
   transition-delay: calc(var(--i) * 60ms);
 }
-/* The middle hero card lies on top; match it before the hand-over. */
-.intro[data-phase="leaving"] .intro-polaroid:nth-child(2) { z-index: 3; }
+/* The middle hero card lies on top; so does the middle polaroid, throughout. */
+.intro-polaroid:nth-child(2) { z-index: 3; }
 
 .intro-polaroid > div {
   position: relative;
