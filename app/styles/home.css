@@ -5,7 +5,13 @@
    With a mouse they then follow the cursor (HeroPhotos).
    ============================================================ */
 
-.hero-fan { display: flex; justify-content: center; }
+.hero-fan {
+  display: flex;
+  justify-content: center;
+  /* Decorative: never block the links behind. The trail's listeners are on
+     the section, so it still works. */
+  pointer-events: none;
+}
 
 .hero-fan-item {
   --card-w: clamp(7rem, 22vw, 15rem);

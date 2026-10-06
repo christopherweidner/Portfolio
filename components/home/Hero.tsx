@@ -7,7 +7,7 @@ import { HERO } from "@/content/home";
  */
 export default function Hero() {
   return (
-    <section className="relative flex min-h-page flex-col items-center justify-center overflow-x-clip px-4 pb-28 pt-16 text-center">
+    <section className="relative isolate flex min-h-page flex-col items-center justify-center overflow-x-clip px-4 pb-28 pt-16 text-center">
       <div className="reveal flex flex-col items-center gap-1.5">
         <p className="font-display text-[15px] uppercase tracking-[0.06em] text-ink">{HERO.location}</p>
         <a
