@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { formatDate, getAllPosts } from "@/lib/blog";
+import PostTile from "@/components/blog/PostTile";
+import { getAllPosts } from "@/lib/blog";
+import { GRID_TILTS } from "@/lib/motion";
 
 export const metadata: Metadata = {
   title: "Blog — Christopher Weidner",
@@ -11,28 +12,20 @@ export default function Blog() {
   const posts = getAllPosts();
 
   return (
-    <main className="flex-1 px-6 pb-16 pt-12">
-      <div className="mx-auto w-full max-w-[68ch]">
+    <main className="flex-1 px-6 pb-24 pt-12 sm:px-10">
+      <div className="mx-auto max-w-6xl">
         <h1 className="reveal font-display text-display uppercase leading-[0.9]">Blog</h1>
+        <p className="mt-4 max-w-[52ch] text-[15px] leading-relaxed">
+          Notes on building software, sport and what I am learning.
+        </p>
 
         {posts.length === 0 ? (
-          <p className="mt-10 text-ink-faint">Nothing here yet.</p>
+          <p className="mt-14 text-ink-soft">Nothing here yet.</p>
         ) : (
-          <ul className="mt-10 divide-y divide-rule border-y border-rule">
-            {posts.map((post) => (
+          <ul className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post, i) => (
               <li key={post.slug}>
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="group block py-6 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue"
-                >
-                  <time dateTime={post.date} className="font-mono text-[11px] uppercase tracking-[0.14em] text-label">
-                    {formatDate(post.date)}
-                  </time>
-                  <h2 className="mt-2 font-display text-[1.75rem] uppercase leading-[0.95] transition-colors group-hover:text-blue">
-                    {post.title}
-                  </h2>
-                  <p className="mt-2 text-[15px] leading-relaxed">{post.summary}</p>
-                </Link>
+                <PostTile post={post} tilt={GRID_TILTS[i % GRID_TILTS.length]} titleAs="h2" />
               </li>
             ))}
           </ul>
