@@ -11,13 +11,22 @@ type Phase = "greeting" | "photos" | "sentence" | "leaving" | "done";
 /** How long the greeting and its loading bar stay on screen, in ms. */
 const GREETING_MS = 1800;
 
+/** How long the hand-over takes: the photos flying into the hero and the
+ *  page fading in behind them, in ms. */
+const LEAVE_MS = 1500;
+
+/** Delay between the photos setting off, in ms. */
+const LEAVE_STAGGER_MS = 80;
+
+const LEAVING_AT = 7000;
+
 /** When each phase starts, in ms from mount. Tune the whole intro here. */
 const TIMELINE: [Exclude<Phase, "greeting">, number][] = [
   ["photos", GREETING_MS],
   ["sentence", 3600],
-  ["leaving", 7000],
-  // The flight takes --dur-slow (900ms) plus 120ms of stagger; land with room to spare.
-  ["done", 8200],
+  ["leaving", LEAVING_AT],
+  // The last photo sets off two staggers late; land with room to spare.
+  ["done", LEAVING_AT + LEAVE_MS + 2 * LEAVE_STAGGER_MS + 150],
 ];
 
 /** Where each photo lies in the pile: offset (in % of the photo), rotation
@@ -146,7 +155,13 @@ export default function Intro() {
   const { greeting, sentence, photos } = INTRO;
 
   return (
-    <div className="intro" data-phase={phase} onClick={skip} role="presentation">
+    <div
+      className="intro"
+      data-phase={phase}
+      onClick={skip}
+      role="presentation"
+      style={{ "--leave": `${LEAVE_MS}ms`, "--leave-stagger": `${LEAVE_STAGGER_MS}ms` } as CSSProperties}
+    >
       <div className="intro-greeting" style={{ "--greet": `${GREETING_MS}ms` } as CSSProperties}>
         <p>{greeting}</p>
         <span className="intro-bar" aria-hidden />

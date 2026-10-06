@@ -30,9 +30,12 @@
      ease-out:    things arriving (reveals, fly-ins, slides)
      ease-in-out: things travelling from one place to another
      ease-spring: things that respond to a hand (hover, open) — overshoots a
-                  little, like the reference site */
+                  little, like the reference site
+     ease-glide:  one long, unhurried hand-over (the intro into the page) —
+                  starts gently and settles slowly, no sharp middle */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-glide: cubic-bezier(0.45, 0, 0.15, 1);
   --ease-spring: linear(0, 0.3 6%, 0.8 14%, 1.06 21%, 1.11 26%, 1.07 33%, 1 44%, 0.98 52%, 1 70%, 1);
   --dur-fast: 250ms;  /* colour, small state changes */
   --dur-base: 500ms;  /* cards, slides, sheets */

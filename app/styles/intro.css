@@ -26,9 +26,12 @@
 }
 
 html[data-intro] .intro { display: none; }
+/* The page fades in gradually over the whole flight, so it is fully there
+   the moment the photos land — never all at once at the start. */
 .intro[data-phase="leaving"] {
   background-color: transparent;
   pointer-events: none;
+  transition: background-color var(--leave, 1500ms) var(--ease-glide);
 }
 
 /* Every layer shares the one grid cell so they stack in the centre. */
@@ -119,11 +122,11 @@ html[data-intro] .intro { display: none; }
     0 calc(18px / var(--k, 1)) calc(40px / var(--k, 1)) calc(-18px / var(--k, 1)) rgb(17 17 17 / 0.35);
   transform: translate(var(--tx, 0), var(--ty, 0)) rotate(var(--tr, 0deg)) scale(var(--ts, 1));
   transition:
-    transform var(--dur-slow) var(--ease-in-out),
-    padding var(--dur-slow) var(--ease-in-out),
-    border-radius var(--dur-slow) var(--ease-in-out),
-    box-shadow var(--dur-slow) var(--ease-in-out);
-  transition-delay: calc(var(--i) * 60ms);
+    transform var(--leave, 1500ms) var(--ease-glide),
+    padding var(--leave, 1500ms) var(--ease-glide),
+    border-radius var(--leave, 1500ms) var(--ease-glide),
+    box-shadow var(--leave, 1500ms) var(--ease-glide);
+  transition-delay: calc(var(--i) * var(--leave-stagger, 80ms));
 }
 /* Arrives last, so lies on top — like the middle hero card. */
 .intro-polaroid:nth-child(2) { z-index: 3; }
