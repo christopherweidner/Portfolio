@@ -22,7 +22,8 @@ tilted neighbours, tile grid, giant "CONTACT" footer band.
 ### Tokens (`app/styles/tokens.css`)
 
 - `--ground: #FFFFFF` — page background.
-- `--ground-soft: #F2F2F0` — grey bands (footer), tile backgrounds.
+- `--ground-soft: #F2F2F0` — tile backgrounds, quiet surfaces.
+- `--band: #C9C9C6` — the footer band; mid grey so the giant white CONTACT stays visible.
 - `--ink: #111111`, `--ink-soft: #2A2D33` (body), `--ink-faint: #8A8F98`
   (large grey display text; ≥ 3:1 on white for large text), `--rule: #E6E6E3`.
 - `--blue`, `--blue-light`, `--blue-deep`, `--label` unchanged.
@@ -108,7 +109,7 @@ Order (all inside `app/page.tsx`, a Server Component):
 
 ## 4. Footer (`components/footer/SiteFooter.tsx`, server, in root layout)
 
-- Full-width `--ground-soft` band at the bottom of every page.
+- Full-width `--band` band at the bottom of every page.
 - Giant `CONTACT` in white (`--ground`) Anton, centred, `--text-giant`;
   decorative (`aria-hidden`), with a visually hidden real heading "Contact".
 - Below: email (mailto link) and the `SOCIALS` links in small display caps,
