@@ -1,0 +1,46 @@
+/* ============================================================
+   CAROUSEL
+   The featured-projects slides. Position comes from data-offset
+   set by FeaturedProjects: 0 centre, ±1 tilted neighbours peeking
+   in from the sides, anything else hidden behind the centre.
+   ============================================================ */
+
+.carousel {
+  --slide-w: min(76vw, 22rem);
+  --slide-gap: min(66vw, 25rem);
+  position: relative;
+  height: calc(var(--slide-w) * 1.25);
+}
+
+.carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--slide-w);
+  transform: translateX(-50%);
+  transition:
+    transform 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 400ms ease;
+}
+
+.carousel-slide[data-offset="0"] { z-index: 2; }
+
+.carousel-slide[data-offset="-1"] {
+  z-index: 1;
+  transform: translateX(calc(-50% - var(--slide-gap))) scale(0.84);
+}
+
+.carousel-slide[data-offset="1"] {
+  z-index: 1;
+  transform: translateX(calc(-50% + var(--slide-gap))) scale(0.84);
+}
+
+.carousel-slide[data-offset="hidden"] {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) scale(0.7);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-slide { transition: none; }
+}
