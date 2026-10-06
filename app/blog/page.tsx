@@ -13,7 +13,7 @@ export default function Blog() {
   return (
     <main className="flex-1 px-6 pb-16 pt-12">
       <div className="mx-auto w-full max-w-[68ch]">
-        <h1 className="reveal font-serif text-era leading-none tracking-[-0.02em]">Blog</h1>
+        <h1 className="reveal font-display text-display uppercase leading-[0.9]">Blog</h1>
 
         {posts.length === 0 ? (
           <p className="mt-10 text-ink-faint">Nothing here yet.</p>
@@ -28,7 +28,7 @@ export default function Blog() {
                   <time dateTime={post.date} className="font-mono text-[11px] uppercase tracking-[0.14em] text-label">
                     {formatDate(post.date)}
                   </time>
-                  <h2 className="mt-2 font-serif text-[1.75rem] leading-tight transition-colors group-hover:text-blue">
+                  <h2 className="mt-2 font-display text-[1.75rem] uppercase leading-[0.95] transition-colors group-hover:text-blue">
                     {post.title}
                   </h2>
                   <p className="mt-2 text-[15px] leading-relaxed">{post.summary}</p>

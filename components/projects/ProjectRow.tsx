@@ -42,7 +42,7 @@ export default function ProjectRow({
 
         <span
           className={[
-            "font-serif text-[clamp(1.6rem,4.2vw,3rem)] font-medium leading-[1.05]",
+            "font-display text-[clamp(1.6rem,4.2vw,3rem)] uppercase leading-[1]",
             "tracking-[-0.02em] transition-colors duration-300",
             active ? "text-blue" : "text-ink",
           ].join(" ")}

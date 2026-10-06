@@ -32,8 +32,8 @@ export default function MomentPanel({ moments, index, onPrevious, onNext }: Prop
         aria-hidden
         className={[
           "pointer-events-none absolute -top-28 right-0 hidden select-none lg:block",
-          "whitespace-pre-line text-right font-serif text-era font-medium",
-          "leading-[0.88] tracking-[-0.03em] text-[#E7E1D4]",
+          "whitespace-pre-line text-right font-display text-era uppercase",
+          "leading-[0.88] text-rule",
         ].join(" ")}
       >
         {moments[index].era}
@@ -57,7 +57,7 @@ export default function MomentPanel({ moments, index, onPrevious, onNext }: Prop
                 {moment.eyebrow}
               </span>
 
-              <h2 className="font-serif text-2xl font-medium tracking-[-0.01em] sm:text-3xl">
+              <h2 className="font-display text-2xl uppercase sm:text-3xl">
                 {moment.title}
               </h2>
 

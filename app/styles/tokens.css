@@ -9,22 +9,28 @@
    ============================================================ */
 
 :root {
-  --ground:      #F7F4EC;  /* warm paper */
-  --ground-soft: #FCFAF4;  /* raised surfaces */
+  --ground:      #FFFFFF;  /* page */
+  --ground-soft: #F2F2F0;  /* tiles, code, quiet surfaces */
+  --band:        #C9C9C6;  /* the footer band behind the giant white CONTACT */
   --blue:        #1B4FD1;  /* cobalt — the only colour event */
-  --blue-light:  #6F8FE8;  /* bloom edges, hover states */
+  --blue-light:  #6F8FE8;
   --blue-deep:   #12327F;
-  --ink:         #0C0F16;  /* headlines */
-  --ink-soft:    #2A3140;  /* body copy */
-  --ink-faint:   #6B7180;  /* tertiary */
+  --ink:         #111111;  /* headlines */
+  --ink-soft:    #2A2D33;  /* body copy */
+  --ink-faint:   #8A8F98;  /* giant grey display lines — large text only */
   --label:       #0D2A6E;  /* small caps labels */
-  --rule:        #E4DFD4;  /* hairlines */
-  --plate:       #C6C0B2;  /* inactive markers */
+  --rule:        #E6E6E3;  /* hairlines */
+  --plate:       #C6C6C2;  /* inactive markers */
+
+  --card-shadow:
+    0 1px 2px rgb(17 17 17 / 0.06),
+    0 18px 40px -18px rgb(17 17 17 / 0.35);
 }
 
 @theme inline {
   --color-ground:      var(--ground);
   --color-ground-soft: var(--ground-soft);
+  --color-band:        var(--band);
   --color-blue:        var(--blue);
   --color-blue-light:  var(--blue-light);
   --color-blue-deep:   var(--blue-deep);
@@ -35,11 +41,13 @@
   --color-rule:        var(--rule);
   --color-marker:      var(--plate);
 
-  --font-serif: var(--font-serif-face), Georgia, serif;
-  --font-sans:  var(--font-sans-face), system-ui, sans-serif;
-  --font-mono:  var(--font-mono-face), ui-monospace, monospace;
+  --font-display: var(--font-display-face), Impact, "Arial Narrow", sans-serif;
+  --font-sans:    var(--font-sans-face), system-ui, sans-serif;
+  --font-mono:    var(--font-mono-face), ui-monospace, monospace;
 
-  --text-display: clamp(2.875rem, 10vw, 8.25rem);
+  --text-giant:   clamp(3.5rem, 13vw, 11rem);
+  --text-display: clamp(2.75rem, 8vw, 6rem);
+  --text-section: clamp(2rem, 5vw, 3.25rem);
   --text-era:     clamp(2.75rem, 6vw, 4.625rem);
 }
 

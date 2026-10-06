@@ -20,7 +20,7 @@ export default function TopBar() {
         aria-label="Main"
         className="mx-auto flex h-full max-w-6xl flex-col justify-center gap-2 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6"
       >
-        <Link href="/" className={`self-start font-serif text-[1.35rem] leading-none text-ink sm:self-auto ${focusRing}`}>
+        <Link href="/" className={`self-start font-display text-[1.2rem] uppercase leading-none tracking-[0.02em] text-ink sm:self-auto ${focusRing}`}>
           Christopher Weidner
         </Link>
 

@@ -34,7 +34,7 @@ export default async function BlogPost({ params }: PageProps<"/blog/[slug]">) {
           <time dateTime={post.date} className="font-mono text-[11px] uppercase tracking-[0.14em] text-label">
             {formatDate(post.date)}
           </time>
-          <h1 className="mt-3 font-serif text-era leading-[1.02] tracking-[-0.02em]">{post.title}</h1>
+          <h1 className="mt-3 font-display text-display uppercase leading-[0.92]">{post.title}</h1>
         </header>
 
         <div className="prose-post mt-10" dangerouslySetInnerHTML={{ __html: post.html }} />

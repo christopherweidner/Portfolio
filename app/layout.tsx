@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Anton, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
-import BloomField from "@/components/BloomField";
 import Nav from "@/components/nav/Nav";
 import { INTRO_GATE_SCRIPT } from "@/lib/intro";
 
-const serif = Cormorant_Garamond({
-  variable: "--font-serif-face",
+const display = Anton({
+  variable: "--font-display-face",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  style: ["normal", "italic"],
+  weight: "400",
   display: "swap",
 });
 
@@ -38,7 +36,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${serif.variable} ${sans.variable} ${mono.variable} h-full antialiased`}
+      className={`${display.variable} ${sans.variable} ${mono.variable} h-full antialiased`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: INTRO_GATE_SCRIPT }} />
@@ -47,8 +45,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </noscript>
       </head>
       <body className="min-h-full flex flex-col bg-ground text-ink-soft">
-        <BloomField />
-        <div aria-hidden className="grain-field" />
         <Nav />
         {children}
       </body>

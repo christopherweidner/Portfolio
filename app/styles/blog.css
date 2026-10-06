@@ -14,7 +14,9 @@
 
 .prose-post h2,
 .prose-post h3 {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  color: var(--ink);
   line-height: 1.15;
   margin-top: 2em;
 }
@@ -40,8 +42,8 @@
 .prose-post blockquote {
   border-left: 2px solid var(--blue);
   padding-left: 1em;
-  font-family: var(--font-serif);
-  font-size: 1.35rem;
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
   font-style: italic;
   color: var(--ink);
 }

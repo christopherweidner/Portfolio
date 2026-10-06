@@ -6,10 +6,8 @@ export default function Home() {
       <Intro />
       <section className="relative h-page overflow-hidden">
         <div className="relative z-10 flex h-full flex-col items-center justify-center gap-6 px-6 text-center">
-          <h1 className="reveal font-serif text-display leading-[0.95] tracking-[-0.03em]">
-            Christopher
-            <br />
-            <i>Weidner</i>
+          <h1 className="reveal font-display text-giant uppercase leading-[0.85]">
+            Christopher Weidner
           </h1>
 
           <p

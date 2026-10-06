@@ -10,8 +10,7 @@ export const metadata: Metadata = {
 
 /**
  * Deliberately a Server Component with no interactivity at all: this page ships
- * zero JavaScript of its own. The background bloom comes from the shared field
- * in the root layout, which is already arranged for this route.
+ * zero JavaScript of its own.
  */
 export default function Contact() {
   return (
@@ -40,7 +39,7 @@ export default function Contact() {
             style={{ "--d": "380ms" } as CSSProperties}
           >
             <span
-              className="link-underline inline-block break-words font-serif text-[clamp(1.55rem,5.4vw,3.75rem)] font-medium leading-[1.1] tracking-[-0.02em]"
+              className="link-underline inline-block break-words font-display text-[clamp(1.55rem,5.4vw,3.75rem)] uppercase leading-[1.05]"
               style={{ "--u": "2px" } as CSSProperties}
             >
               {EMAIL}
