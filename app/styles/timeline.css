@@ -7,9 +7,9 @@
 
 /* Use together with .media, which supplies the frame and the placeholder. */
 .plate {
-  border-radius: 2px;
+  border-radius: 22px;
   will-change: transform;
-  box-shadow: 0 26px 60px -30px rgba(12, 15, 22, 0.5);
+  box-shadow: var(--card-shadow);
 }
 
 .cursor-dot {

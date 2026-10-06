@@ -15,7 +15,7 @@ export default function TopBar() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 h-[var(--bar-h)] border-b border-rule bg-ground/90 backdrop-blur-md">
+    <header className="sticky top-0 z-50 h-[var(--bar-h)] border-b border-rule bg-ground/95 backdrop-blur-sm">
       <nav
         aria-label="Main"
         className="mx-auto flex h-full max-w-6xl flex-col justify-center gap-2 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6"
@@ -32,7 +32,7 @@ export default function TopBar() {
                 <Link
                   href={href}
                   aria-current={active ? "page" : undefined}
-                  className={`block whitespace-nowrap py-1 text-[14px] decoration-blue decoration-[1.5px] underline-offset-[6px] transition-colors ${focusRing} ${
+                  className={`block whitespace-nowrap py-1 font-medium text-[14px] decoration-blue decoration-[1.5px] underline-offset-[6px] transition-colors ${focusRing} ${
                     active ? "text-ink underline" : "text-label hover:text-blue"
                   }`}
                 >

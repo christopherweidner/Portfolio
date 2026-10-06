@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Anton, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/nav/Nav";
+import SiteFooter from "@/components/footer/SiteFooter";
 import { INTRO_GATE_SCRIPT } from "@/lib/intro";
 
 const display = Anton({
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col bg-ground text-ink-soft">
         <Nav />
         {children}
+        <SiteFooter />
       </body>
     </html>
   );

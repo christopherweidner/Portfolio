@@ -50,7 +50,7 @@ export default function RoamingPlate({
           fill
           sizes={sizes}
           className="object-cover"
-          priority={priority}
+          fetchPriority={priority ? "high" : undefined}
         />
       ) : null}
     </div>
