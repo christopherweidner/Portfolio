@@ -42,13 +42,19 @@
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
-  width: min(100%, 16rem);
+  width: min(100%, 21rem);
 }
 .stat-record {
+  /* Entered on the board from the left. */
+  opacity: var(--on);
+  transform: translateX(calc((1 - var(--on)) * -18px));
+}
+/* Each row links to the article about the record. */
+.stat-record-link {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.3rem 0.4rem;
+  padding: 0.3rem 0.5rem 0.3rem 0.4rem;
   border-radius: 8px;
   background: var(--ground-soft);
   font-family: var(--font-mono);
@@ -56,17 +62,36 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink-soft);
-  /* Entered on the board from the left. */
-  opacity: var(--on);
-  transform: translateX(calc((1 - var(--on)) * -18px));
+  transition: color var(--dur-fast) var(--ease-out);
 }
+.stat-record-link:hover { color: var(--blue); }
+.stat-record-link:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 .stat-record-tag {
-  padding: 0.15rem 0.4rem;
+  flex: none;
+  width: 5.6rem;
+  padding: 0.15rem 0;
   border-radius: 5px;
   background: var(--blue);
   font-size: 10px;
   letter-spacing: 0.1em;
+  text-align: center;
   color: var(--ground);
+}
+.stat-record-arrow {
+  color: var(--blue);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.stat-record-link:hover .stat-record-arrow,
+.stat-record-link:focus-visible .stat-record-arrow { transform: translate(2px, -2px); }
+
+/* Phones: a little tighter, so every record stays on one line. */
+@media (max-width: 480px) {
+  .stat-record-link { gap: 0.45rem; font-size: 10px; letter-spacing: 0.03em; }
+  .stat-record-tag { width: 4.9rem; font-size: 9.5px; letter-spacing: 0.06em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stat-record-arrow { transition: none; }
 }
 
 /* ---------------- Junior Europeans: the podium ---------------- */

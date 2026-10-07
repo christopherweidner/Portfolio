@@ -141,7 +141,27 @@ export const SPORT_STATS = {
   label: "Statistics",
   journey: "Below is the entire journey",
   medals: { value: 10, suffix: "+", label: "National medals" },
-  records: { label: "National records", list: ["Age group record", "Relay record", "Relay record"] },
+  /** Each record links to the article about it. `kind` is the small blue tag. */
+  records: {
+    label: "National records",
+    list: [
+      {
+        kind: "Age group",
+        event: "50 m breaststroke",
+        href: "https://www.swimsportnews.de/olympia-schwimmen-2024-paris/12468-die-deutschen-altersklassenrekorde-des-jahres-2022-nachwuchs",
+      },
+      {
+        kind: "Relay",
+        event: "4×50 m breaststroke",
+        href: "https://germanaquatics.de/melvin-imoudu-und-malte-graefe-fuehren-potsdam-zum-deutschen-staffelrekord/",
+      },
+      {
+        kind: "Relay",
+        event: "4×100 m breaststroke",
+        href: "https://germanaquatics.de/melvin-imoudu-fuehrt-potsdams-staffel-zum-deutschen-rekord/",
+      },
+    ],
+  },
   europeans: { place: 4, label: "Junior European Championships" },
   years: { value: 15, suffix: "+", label: "Years trained", since: 2010 },
 };
