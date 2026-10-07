@@ -42,13 +42,19 @@
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
-  width: min(100%, 16rem);
+  width: min(100%, 21rem);
 }
 .stat-record {
+  /* Entered on the board from the left. */
+  opacity: var(--on);
+  transform: translateX(calc((1 - var(--on)) * -18px));
+}
+/* Each row links to the article about the record. */
+.stat-record-link {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.3rem 0.4rem;
+  padding: 0.3rem 0.5rem 0.3rem 0.4rem;
   border-radius: 8px;
   background: var(--ground-soft);
   font-family: var(--font-mono);
@@ -56,17 +62,56 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink-soft);
-  /* Entered on the board from the left. */
-  opacity: var(--on);
-  transform: translateX(calc((1 - var(--on)) * -18px));
+  transition: color var(--dur-fast) var(--ease-out);
 }
+.stat-record-link:hover { color: var(--blue); }
+.stat-record-link:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 .stat-record-tag {
-  padding: 0.15rem 0.4rem;
+  flex: none;
+  width: 5.6rem;
+  padding: 0.15rem 0;
   border-radius: 5px;
   background: var(--blue);
   font-size: 10px;
   letter-spacing: 0.1em;
+  text-align: center;
   color: var(--ground);
+}
+.stat-record-arrow {
+  color: var(--blue);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.stat-record-link:hover .stat-record-arrow,
+.stat-record-link:focus-visible .stat-record-arrow { transform: translate(2px, -2px); }
+
+/* A stat whose whole card links to an article: the label is the link, and
+   its ::after stretches over the card so the card is one click target. */
+.stat-card-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--label);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.stat-card-link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.stat:has(.stat-card-link) .tilt-card { cursor: pointer; }
+.stat-card-link:hover,
+.stat-card-link:focus-visible { color: var(--blue); outline: none; }
+.stat-card-link:focus-visible::after { outline: 2px solid var(--blue); outline-offset: 4px; border-radius: 22px; }
+.stat-card-link:hover .stat-record-arrow,
+.stat-card-link:focus-visible .stat-record-arrow { display: inline-block; transform: translate(2px, -2px); }
+
+/* Phones: a little tighter, so every record stays on one line. */
+@media (max-width: 480px) {
+  .stat-record-link { gap: 0.45rem; font-size: 10px; letter-spacing: 0.03em; }
+  .stat-record-tag { width: 4.9rem; font-size: 9.5px; letter-spacing: 0.06em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stat-record-arrow { transition: none; }
 }
 
 /* ---------------- Junior Europeans: the podium ---------------- */
@@ -229,4 +274,53 @@
 @media (prefers-reduced-motion: reduce) {
   .moment-rail-label,
   .moment-rail-dot { transition: none; }
+}
+
+/* ============================================================
+   PRESS
+   Clippings pinned to a soft board, slightly askew like paper;
+   below them an index of articles online.
+   ============================================================ */
+
+.clipping-board {
+  padding: 1.5rem 1.5rem 0;
+  background: var(--ground-soft);
+}
+.clipping-paper {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 4px 4px 0 0;
+  background: var(--ground);
+  box-shadow: 0 -2px 18px color-mix(in oklab, var(--ink) 12%, transparent);
+  transform: rotate(-0.8deg) translateY(4px);
+  transition: transform var(--dur-base) var(--ease-spring);
+}
+.tilt-card:hover .clipping-paper,
+.tilt-card:focus-visible .clipping-paper { transform: rotate(0deg) translateY(0); }
+
+.press-link {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr auto;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 1rem 0.25rem;
+  border-top: 1px solid color-mix(in oklab, var(--ink) 12%, transparent);
+  color: var(--ink);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.press-link:hover { color: var(--blue); }
+.press-link:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 6px; }
+.press-link:hover .stat-record-arrow,
+.press-link:focus-visible .stat-record-arrow { display: inline-block; transform: translate(2px, -2px); }
+
+@media (max-width: 640px) {
+  .press-link { grid-template-columns: 1fr auto; gap: 0.35rem 1rem; }
+  .press-link-year { grid-column: 1 / -1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clipping-paper { transition: none; }
+  .tilt-card:hover .clipping-paper,
+  .tilt-card:focus-visible .clipping-paper { transform: rotate(-0.8deg) translateY(4px); }
 }

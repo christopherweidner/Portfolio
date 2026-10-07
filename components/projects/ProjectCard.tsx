@@ -11,7 +11,8 @@ type Props = {
 
 /**
  * One project as a card: the screenshot, or a cobalt gradient until there is
- * one, then title, meta and summary. Used by the home carousel.
+ * one, then title, meta and summary, and a
+ * "Read more" cue when the card opens the full story. Used by the home carousel.
  */
 export default function ProjectCard({ project, tilt = 0, onOpen }: Props) {
   return (
@@ -24,6 +25,11 @@ export default function ProjectCard({ project, tilt = 0, onOpen }: Props) {
           <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-label">{project.meta}</span>
         ) : null}
         <p className="line-clamp-3 text-[14px] leading-relaxed">{project.summary}</p>
+        {onOpen && project.body ? (
+          <span aria-hidden className="project-card-more mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-blue">
+            Read more <span className="project-card-arrow">→</span>
+          </span>
+        ) : null}
       </div>
     </TiltCard>
   );
