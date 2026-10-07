@@ -17,8 +17,12 @@
   transition: transform var(--dur-base) var(--ease-spring);
 }
 
+/* Layered, so a display utility on the card (flex) still wins over block. */
+@layer components {
+  button.tilt-card { display: block; }
+}
+
 button.tilt-card {
-  display: block;
   width: 100%;
   padding: 0;
   border: 0;

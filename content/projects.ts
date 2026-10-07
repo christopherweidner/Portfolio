@@ -40,13 +40,20 @@ export const PROJECTS: Project[] = [
     body:
       "Pura came from a problem of my own. I was very focused and diligent about my nutrition, and I wanted it to be perfect. That was really hard, because of the friction of having to shop for groceries and decide what to eat every single day.\n\nSo I built a tool for myself that automates this process. It has worked great for me.\n\nI thought about launching it, but haven't yet. The website is still up, and I will see whether I finish Pura for the public. If there is demand, I will publish it.",
     href: "https://www.pura-app.de/",
-    angle: "150deg",
+    image: "/projects/pura.jpg",
+    alt:
+      "A bowl seen from above: seared salmon with dill and lemon, green " +
+      "asparagus, roasted cherry tomatoes and a grain salad.",
   },
   {
-    title: "Coming soon",
-    meta: "",
-    summary: "Reserved.",
-    angle: "40deg",
+    title: "Creative Solutions",
+    meta: "Freelance agency · video & web",
+    summary:
+      "My freelance agency: video work for local businesses, and websites and Shopify shops for clients and for myself.",
+    body:
+      "Creative Solutions is the name I freelance under.\n\nOn the video side, I made videos for local businesses.\n\nOn the web side, I built websites, both for myself and for clients, and set up Shopify shops.",
+    image: "/projects/creative-solutions.jpg",
+    alt: "The Creative Solutions logo: a light blue chevron pointing upwards on a pale grey ground.",
   },
   {
     title: "Coming soon",

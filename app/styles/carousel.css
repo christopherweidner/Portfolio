@@ -41,6 +41,15 @@
   transform: translateX(-50%) scale(0.7);
 }
 
+/* The "Read more" cue on a card that opens: the arrow nudges on hover. */
+.project-card-arrow {
+  display: inline-block;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.tilt-card:hover .project-card-arrow,
+.tilt-card:focus-visible .project-card-arrow { transform: translateX(4px); }
+
 @media (prefers-reduced-motion: reduce) {
-  .carousel-slide { transition: none; }
+  .carousel-slide,
+  .project-card-arrow { transition: none; }
 }
