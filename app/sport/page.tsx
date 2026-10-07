@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import MomentRail from "@/components/sport/MomentRail";
 import MomentSection from "@/components/sport/MomentSection";
+import SportStats from "@/components/sport/SportStats";
 import Reveal from "@/components/ui/Reveal";
-import { MOMENTS, SPORT_INTRO } from "@/content/sport";
+import { MOMENTS, SPORT_INTRO, SPORT_STATS } from "@/content/sport";
 
 export const metadata: Metadata = {
   title: "Sport — Christopher Weidner",
@@ -12,7 +13,10 @@ export const metadata: Metadata = {
 
 const momentId = (i: number) => `moment-${i + 1}`;
 
-/** The swimming years, one section per station, with a dot menu to jump between them. */
+/**
+ * The swimming years: the statistics first, then one section per station,
+ * with a dot menu to jump between them.
+ */
 export default function Sport() {
   return (
     // The extra padding from lg up keeps the text clear of the dot menu on the
@@ -27,7 +31,21 @@ export default function Sport() {
           {SPORT_INTRO}
         </p>
 
-        <ol className="mt-24 flex flex-col gap-32 sm:gap-44">
+        <section aria-labelledby="sport-stats" className="reveal mt-20" style={{ "--d": "240ms" } as CSSProperties}>
+          <h2 id="sport-stats" className="mb-8 text-center font-mono text-[11px] uppercase tracking-[0.16em] text-label">
+            {SPORT_STATS.label}
+          </h2>
+          <SportStats />
+        </section>
+
+        <p className="mt-24 flex flex-col items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-label">
+          {SPORT_STATS.journey}
+          <svg aria-hidden viewBox="0 0 12 16" className="journey-arrow h-4 w-3 text-blue">
+            <path d="M6 1v13M1 9l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="1.5" />
+          </svg>
+        </p>
+
+        <ol className="mt-16 flex flex-col gap-32 sm:gap-44">
           {MOMENTS.map((moment, i) => (
             <li key={moment.year + moment.title} id={momentId(i)} className="scroll-mt-[calc(var(--bar-h)+3rem)]">
               <Reveal>

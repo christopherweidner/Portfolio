@@ -131,3 +131,16 @@ export const MOMENTS: Moment[] = [
     angle: "340deg",
   },
 ];
+
+/**
+ * The numbers at the top of the Sport page, above the journey. They count
+ * up as the page loads. `since` is the first year in the calendar of years
+ * trained; it shows `years.value` years from there.
+ */
+export const SPORT_STATS = {
+  label: "Statistics",
+  journey: "Below is the entire journey",
+  medals: { value: 10, suffix: "+", label: "National medals" },
+  europeans: { place: 4, label: "Junior European Championships" },
+  years: { value: 15, suffix: "+", label: "Years trained", since: 2010 },
+};
