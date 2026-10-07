@@ -162,6 +162,143 @@ export const SPORT_STATS = {
       },
     ],
   },
-  europeans: { place: 4, label: "Junior European Championships" },
+  /** Links to the article about the race. */
+  europeans: {
+    place: 4,
+    label: "Junior European Championships",
+    href: "https://www.nwzonline.de/sport/junioren-em-im-schwimmen-christopher-weidner-erlebt-in-belgrad-wohl-und-uebel_a_4,0,1618522920.html",
+  },
   years: { value: 15, suffix: "+", label: "Years trained", since: 2010 },
+};
+
+export type Clipping = {
+  headline: string;
+  outlet: string;
+  /** When it ran, as shown: a month and year, or just the year. */
+  date: string;
+  /** The scanned clipping, in /public/sport/press/. */
+  image: string;
+  /** The scan's own pixel size, so the full view never crops it. */
+  width: number;
+  height: number;
+  /** Describes the clipping, including its photo. */
+  alt: string;
+  /** The same article online, if it exists. */
+  href?: string;
+};
+
+export type PressLink = {
+  headline: string;
+  outlet: string;
+  year: string;
+  href: string;
+};
+
+/**
+ * The bottom of the Sport page: newspaper clippings first, then links to
+ * further coverage online. Newest first in both lists.
+ */
+export const PRESS = {
+  label: "In the press",
+  title: "Press",
+  linksLabel: "More coverage online",
+  clippings: [
+    {
+      headline: "So vereint er Spitzensport und Schule",
+      outlet: "Nordwest-Zeitung",
+      date: "January 2023",
+      image: "/sport/press/spitzensport-und-schule.jpg",
+      width: 737,
+      height: 1180,
+      alt:
+        "Newspaper page headed by a large photo of Christopher swimming butterfly " +
+        "in a cap with the German flag and his name.",
+      href: "https://www.nwzonline.de/sport/christopher-weidner-schwimmer-vereint-spitzensport-und-abitur-an-eliteschule-in-potsdam_a_4H9mGv6aTXS8ecgck0DHW.html",
+    },
+    {
+      headline: "Weidner setzt Erfolgsserie bei DM fort",
+      outlet: "Nordwest-Zeitung",
+      date: "November 2022",
+      image: "/sport/press/erfolgsserie-bei-dm.jpg",
+      width: 1354,
+      height: 908,
+      alt:
+        "Newspaper article in five columns with three portrait photos of " +
+        "swimmers, Christopher in the middle.",
+      href: "https://www.nwzonline.de/oldenburg-kreis/erfolgreiche-schwimmer-aus-wardenburg_a_51,11,260520674.html",
+    },
+    {
+      headline: "Ihn locken jetzt die Olympia-Schmieden",
+      outlet: "Nordwest-Zeitung",
+      date: "June 2022",
+      image: "/sport/press/olympia-schmieden.jpg",
+      width: 622,
+      height: 1190,
+      alt:
+        "Photographed newspaper article with a photo of Christopher wearing " +
+        "two medals in front of a sponsor wall.",
+    },
+  ] satisfies Clipping[],
+  links: [
+    {
+      headline: "Duo aus Oldenburg schwimmt auf Kurzbahn mit Leistungssprung in die deutsche Spitze",
+      outlet: "Nordwest-Zeitung",
+      year: "2024",
+      href: "https://www.nwzonline.de/sport/carlotta-ingenerf-und-christopher-weidner-duo-aus-oldenburg-schwimmt-bei-kurzbahn-dm-in-deutsche-spitze_a_4,1,3153345262.html",
+    },
+    {
+      headline: "So lebt, lernt und trainiert Schwimm-Talent aus Oldenburg auf der Sportschule in Potsdam",
+      outlet: "Nordwest-Zeitung",
+      year: "2023",
+      href: "https://www.nwzonline.de/sport/christopher-weidner-aus-oldenburg-so-lebt-schwimm-ass-auf-der-sportschule-in-potsdam_a_4,0,3700372123.html",
+    },
+    {
+      headline: "Junioren-EM: Christopher Weidner erlebt in Belgrad Wohl und Übel",
+      outlet: "Nordwest-Zeitung",
+      year: "2023",
+      href: "https://www.nwzonline.de/sport/junioren-em-im-schwimmen-christopher-weidner-erlebt-in-belgrad-wohl-und-uebel_a_4,0,1618522920.html",
+    },
+    {
+      headline: "DJM in Berlin: Oldenburger schwimmen zu Medaillen und Bestzeiten",
+      outlet: "Nordwest-Zeitung",
+      year: "2023",
+      href: "https://www.nwzonline.de/sport/djm-in-berlin-oldenburger-schwimmen-zu-medaillen-und-bestzeiten_a_4,0,1149439028.html",
+    },
+    {
+      headline: "Carlotta Ingenerf und Christopher Weidner holen Medaillen bei den Jahrgangsmeisterschaften",
+      outlet: "Wardenburger SC",
+      year: "2023",
+      href: "https://www.wardenburger-sc.de/2023-djm",
+    },
+    {
+      headline: "Sportlerwahl im Landkreis Oldenburg: Lotta Drews, Christopher Weidner und Ahlhorner SV gewinnen",
+      outlet: "Nordwest-Zeitung",
+      year: "2023",
+      href: "https://www.nwzonline.de/sport/sportlerwahl-im-landkreis-oldenburg-lotta-drews-christopher-weidner-und-ahlhorner-sv-gewinnen_a_4,0,747750679.html",
+    },
+    {
+      headline: "DMSJ 2023 – Sieg mit Rekord",
+      outlet: "Potsdamer SV",
+      year: "2023",
+      href: "https://www.potsdamersv.de/2023/01/26/dmsj-2023-sieg-und-rekord/",
+    },
+    {
+      headline: "Gemeinde Wardenburg ehrt ihre erfolgreichsten Sportler des Jahres 2022",
+      outlet: "Nordwest-Zeitung",
+      year: "2023",
+      href: "https://www.nwzonline.de/oldenburg-kreis/gemeinde-wardenburg-ehrt-ihre-erfolgreichsten-sportler-des-jahres-2022-schwimmer-faustballer-und-tischtennisspieler-ausgezeichnet_a_4,0,3544713890.html",
+    },
+    {
+      headline: "Christopher Weidner holt bei DJM Silber und Bronze",
+      outlet: "Nordwest-Zeitung",
+      year: "2021",
+      href: "https://www.nwzonline.de/oldenburg/schwimmen-in-oldenburg-christopher-weidner-holt-bei-djm-silber-und-bronze_a_51,4,1418119270.html",
+    },
+    {
+      headline: "Nachwuchs macht in Hannover fette Beute",
+      outlet: "Nordwest-Zeitung",
+      year: "2019",
+      href: "https://www.nwzonline.de/oldenburg/lokalsport/hannover-schwimmen-nachwuchs-macht-in_a_50,6,2235773273.html",
+    },
+  ] satisfies PressLink[],
 };

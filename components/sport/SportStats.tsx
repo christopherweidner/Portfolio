@@ -98,7 +98,7 @@ export default function SportStats() {
         </ol>
       </Stat>
 
-      <Stat i={2} to={europeans.place} format="ordinal" label={europeans.label} n={PODIUM.length}>
+      <Stat i={2} to={europeans.place} format="ordinal" label={europeans.label} href={europeans.href} n={PODIUM.length}>
         <div className="stat-podium">
           {PODIUM.map(({ place, h }) => (
             <span
@@ -135,6 +135,8 @@ type StatProps = {
   format: Format;
   suffix?: string;
   label: string;
+  /** Turns the whole card into a link to this article, opened in a new tab. */
+  href?: string;
   /** How many marks the picture has; each lights up at its share of the count. */
   n: number;
   /** Hidden from assistive tech unless the picture holds real content, like links. */
@@ -143,7 +145,7 @@ type StatProps = {
 };
 
 /** One card: the picture, the number and what it counts. */
-function Stat({ i, to, format, suffix, label, n, decorative = true, children }: StatProps) {
+function Stat({ i, to, format, suffix, label, href, n, decorative = true, children }: StatProps) {
   return (
     <li className="stat" data-to={to} data-format={format} style={{ "--n": n } as CSSProperties}>
       <TiltCard tilt={GRID_TILTS[i % GRID_TILTS.length]} className="flex h-full flex-col gap-6 p-7">
@@ -155,7 +157,15 @@ function Stat({ i, to, format, suffix, label, n, decorative = true, children }: 
             <span data-count>{show(format, to)}</span>
             {suffix ? <span className="text-blue">{suffix}</span> : null}
           </p>
-          <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-label">{label}</p>
+          {href ? (
+            <a href={href} target="_blank" rel="noopener noreferrer" className="stat-card-link">
+              {label}
+              <span aria-hidden className="stat-record-arrow"> ↗</span>
+              <span className="sr-only"> — article, opens in a new tab</span>
+            </a>
+          ) : (
+            <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-label">{label}</p>
+          )}
         </div>
       </TiltCard>
     </li>
