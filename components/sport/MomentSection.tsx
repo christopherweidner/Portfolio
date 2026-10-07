@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 import TiltCard from "@/components/ui/TiltCard";
 import type { Moment } from "@/content/sport";
+import { paragraphs } from "@/lib/text";
 
 type Props = {
   moment: Moment;
@@ -14,7 +15,6 @@ type Props = {
  * tilted card overlapping it, and the text beside. Purely presentational.
  */
 export default function MomentSection({ moment, flip }: Props) {
-  const paragraphs = moment.body.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
 
   return (
     <article className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
@@ -39,7 +39,7 @@ export default function MomentSection({ moment, flip }: Props) {
         <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-label">{moment.eyebrow}</span>
         <h2 className="font-display text-[clamp(1.85rem,3.5vw,2.75rem)] uppercase leading-[0.95]">{moment.title}</h2>
         <div className="flex max-w-[58ch] flex-col gap-4 text-[16px] leading-[1.75] text-pretty">
-          {paragraphs.map((paragraph, i) => (
+          {paragraphs(moment.body).map((paragraph, i) => (
             <p key={i}>{paragraph}</p>
           ))}
         </div>

@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import ProjectMedia from "@/components/projects/ProjectMedia";
 import type { Project } from "@/content/projects";
+import { paragraphs } from "@/lib/text";
 
 type Props = {
   /** The project to show; null keeps the sheet closed. */
@@ -80,13 +81,17 @@ export default function ProjectSheet({ project, onClose }: Props) {
             {project.meta ? (
               <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-label">{project.meta}</span>
             ) : null}
-            <p className="max-w-[60ch] text-[16px] leading-relaxed">{project.summary}</p>
+            <div className="mx-auto flex max-w-[60ch] flex-col gap-4 text-[16px] leading-relaxed">
+              {paragraphs(project.body ?? project.summary).map((paragraph, i) => (
+                <p key={i}>{paragraph}</p>
+              ))}
+            </div>
             {project.href ? (
               <a
                 href={project.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`mt-2 self-start font-mono text-[12px] uppercase tracking-[0.14em] text-blue underline-offset-4 hover:underline ${focusRing}`}
+                className={`mt-2 self-center font-mono text-[12px] uppercase tracking-[0.14em] text-blue underline-offset-4 hover:underline ${focusRing}`}
               >
                 Visit ↗<span className="sr-only"> (opens in a new tab)</span>
               </a>

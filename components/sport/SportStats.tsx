@@ -10,7 +10,7 @@ import { GRID_TILTS } from "@/lib/motion";
 const COUNT_MS = 1800;
 
 /** When each card starts counting, in ms from load — just after the page has risen in. */
-const DELAYS = [350, 500, 650];
+const DELAYS = [350, 500, 650, 800];
 
 /** The podium, left to right as it stands: place and step height. */
 const PODIUM = [
@@ -25,10 +25,11 @@ type Format = "number" | "ordinal";
 const show = (format: Format, n: number) => (format === "ordinal" ? ordinal(Math.max(1, n)) : String(n));
 
 /**
- * The numbers at the top of the Sport page: national medals, the place at the
- * Junior Europeans and the years trained. Each counts up once as the page
- * loads, and its picture fills in with it — medals pop in one by one, the
- * podium rises place by place, the calendar fills year by year.
+ * The numbers at the top of the Sport page: national medals, national
+ * records, the place at the Junior Europeans and the years trained. Each
+ * counts up once as the page loads, and its picture fills in with it — medals
+ * pop in one by one, records are entered on the board, the podium rises place
+ * by place, the calendar fills year by year.
  *
  * The server renders the final values, so they are right without JavaScript
  * and with reduced motion. Every frame writes the count and its progress
@@ -64,11 +65,11 @@ export default function SportStats() {
     return () => cancelAnimationFrame(frame);
   }, []);
 
-  const { medals, europeans, years } = SPORT_STATS;
+  const { medals, records, europeans, years } = SPORT_STATS;
   const calendar = Array.from({ length: years.value }, (_, i) => years.since + i);
 
   return (
-    <ul ref={list} className="grid gap-8 md:grid-cols-3 md:gap-6">
+    <ul ref={list} className="grid gap-8 md:grid-cols-2 md:gap-x-8 md:gap-y-10">
       <Stat i={0} to={medals.value} format="number" suffix={medals.suffix} label={medals.label} n={medals.value}>
         <div className="stat-medals">
           {Array.from({ length: medals.value }, (_, i) => (
@@ -81,7 +82,18 @@ export default function SportStats() {
         </div>
       </Stat>
 
-      <Stat i={1} to={europeans.place} format="ordinal" label={europeans.label} n={PODIUM.length}>
+      <Stat i={1} to={records.list.length} format="number" label={records.label} n={records.list.length}>
+        <ol className="stat-records">
+          {records.list.map((record, i) => (
+            <li key={i} className="stat-record" style={{ "--i": i } as CSSProperties}>
+              <span className="stat-record-tag">NR</span>
+              {record}
+            </li>
+          ))}
+        </ol>
+      </Stat>
+
+      <Stat i={2} to={europeans.place} format="ordinal" label={europeans.label} n={PODIUM.length}>
         <div className="stat-podium">
           {PODIUM.map(({ place, h }) => (
             <span
@@ -96,7 +108,7 @@ export default function SportStats() {
         </div>
       </Stat>
 
-      <Stat i={2} to={years.value} format="number" suffix={years.suffix} label={years.label} n={years.value}>
+      <Stat i={3} to={years.value} format="number" suffix={years.suffix} label={years.label} n={years.value}>
         <div className="stat-calendar">
           <p className="stat-calendar-head">Since {years.since}</p>
           <div className="stat-calendar-grid">

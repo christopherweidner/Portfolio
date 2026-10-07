@@ -141,6 +141,7 @@ export const SPORT_STATS = {
   label: "Statistics",
   journey: "Below is the entire journey",
   medals: { value: 10, suffix: "+", label: "National medals" },
+  records: { label: "National records", list: ["Age group record", "Relay record", "Relay record"] },
   europeans: { place: 4, label: "Junior European Championships" },
   years: { value: 15, suffix: "+", label: "Years trained", since: 2010 },
 };
