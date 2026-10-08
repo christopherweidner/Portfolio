@@ -1,3 +1,4 @@
+import About from "@/components/home/About";
 import FeaturedProjects from "@/components/home/FeaturedProjects";
 import Hero from "@/components/home/Hero";
 import Intro from "@/components/home/Intro";
@@ -9,6 +10,7 @@ export default function Home() {
     <main className="flex-1">
       <Intro />
       <Hero />
+      <About />
       <FeaturedProjects projects={PROJECTS} />
       <LatestPosts />
     </main>

@@ -6,6 +6,10 @@ const nextConfig: NextConfig = {
     // at 75 their soft gradients (studio backdrop, sunset sky) band visibly.
     qualities: [75, 90],
   },
+  // About is now a section of the home page; keep old links working.
+  async redirects() {
+    return [{ source: "/about", destination: "/#about", permanent: true }];
+  },
 };
 
 export default nextConfig;

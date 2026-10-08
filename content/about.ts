@@ -1,5 +1,5 @@
 /**
- * The About page text. One string per paragraph.
+ * The About section on the home page. One string per paragraph.
  */
 export const ABOUT = [
   "Hi, I’m Christopher.",
