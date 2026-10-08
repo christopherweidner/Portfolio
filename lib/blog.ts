@@ -8,8 +8,10 @@ import { marked } from "marked";
  *
  * One post is one Markdown file in content/blog. The file name is the URL
  * slug; the front matter carries title, date (YYYY-MM-DD) and summary, and
- * `draft: true` keeps a post out of production builds. Publishing is
- * committing the file.
+ * `draft: true` keeps a post out of production builds. An optional `image`
+ * (a path under public/, e.g. /blog/<slug>.jpg) with its `imageAlt` is the
+ * cover shown on the tile and above the post. Publishing is committing the
+ * file.
  *
  * Posts are written by the site owner and committed to the repo, so the
  * rendered HTML is trusted and not sanitised.
@@ -21,7 +23,10 @@ export type PostMeta = {
   date: string;
   summary: string;
   draft: boolean;
+  cover: Cover | null;
 };
+
+export type Cover = { src: string; alt: string };
 
 export type Post = PostMeta & { html: string };
 
@@ -55,6 +60,15 @@ function toIsoDate(slug: string, value: unknown, source: string): string {
   return text;
 }
 
+function toCover(slug: string, data: Record<string, unknown>): Cover | null {
+  if (data.image === undefined) return null;
+  const src = requireString(slug, "image", data.image);
+  if (!src.startsWith("/")) {
+    throw new Error(`content/blog/${slug}.md: "image" must be a path under public/, starting with /`);
+  }
+  return { src, alt: requireString(slug, "imageAlt", data.imageAlt) };
+}
+
 export function parsePost(slug: string, source: string): Post {
   const { data, content } = matter(source);
   return {
@@ -63,6 +77,7 @@ export function parsePost(slug: string, source: string): Post {
     date: toIsoDate(slug, data.date, source),
     summary: requireString(slug, "summary", data.summary),
     draft: data.draft === true,
+    cover: toCover(slug, data),
     html: marked.parse(content, { async: false }),
   };
 }
@@ -93,7 +108,7 @@ export function getAllPosts(options?: Options): PostMeta[] {
     })
     .filter((post) => includeDrafts || !post.draft)
     .sort((a, b) => b.date.localeCompare(a.date))
-    .map((post) => ({ slug: post.slug, title: post.title, date: post.date, summary: post.summary, draft: post.draft }));
+    .map(({ slug, title, date, summary, draft, cover }) => ({ slug, title, date, summary, draft, cover }));
 }
 
 export function getPost(slug: string, options?: Options): Post | null {

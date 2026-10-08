@@ -42,6 +42,17 @@ describe("parsePost", () => {
     expect(() => parsePost("bad", post("title: X\ndate: 6.10.2026\nsummary: S"))).toThrow(/bad\.md.*date/);
   });
 
+  it("reads an optional cover image", () => {
+    expect(parsePost("c", post("title: C\ndate: 2026-01-02\nsummary: S")).cover).toBeNull();
+    const withCover = post("title: C\ndate: 2026-01-02\nsummary: S\nimage: /blog/c.jpg\nimageAlt: A globe");
+    expect(parsePost("c", withCover).cover).toEqual({ src: "/blog/c.jpg", alt: "A globe" });
+  });
+
+  it("rejects a cover without alt text or with a relative path", () => {
+    expect(() => parsePost("c", post("title: C\ndate: 2026-01-02\nsummary: S\nimage: /blog/c.jpg"))).toThrow(/c\.md.*imageAlt/);
+    expect(() => parsePost("c", post("title: C\ndate: 2026-01-02\nsummary: S\nimage: c.jpg\nimageAlt: A"))).toThrow(/"image" must be a path/);
+  });
+
   it("reads draft: true", () => {
     expect(parsePost("d", post("title: D\ndate: 2026-01-02\nsummary: S\ndraft: true")).draft).toBe(true);
   });

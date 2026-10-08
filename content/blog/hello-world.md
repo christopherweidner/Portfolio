@@ -2,6 +2,8 @@
 title: Hello, world
 date: 2026-10-06
 summary: Why this blog exists and what will end up here.
+image: /blog/hello-world.jpg
+imageAlt: A smiling cartoon globe waving both hands under a "Hello world!" banner
 ---
 
 This is where I write things down — about building software, about sport,

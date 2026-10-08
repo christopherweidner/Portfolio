@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { formatDate, getAllPosts, getPost } from "@/lib/blog";
@@ -36,6 +37,12 @@ export default async function BlogPost({ params }: PageProps<"/blog/[slug]">) {
           </time>
           <h1 className="reveal mt-3 font-display text-display uppercase leading-[0.92]">{post.title}</h1>
         </header>
+
+        {post.cover ? (
+          <div className="relative mt-10 aspect-[3/2] overflow-hidden rounded-[18px]">
+            <Image src={post.cover.src} alt={post.cover.alt} fill priority sizes="(min-width: 768px) 68ch, 100vw" className="object-cover" />
+          </div>
+        ) : null}
 
         <div className="prose-post mt-10" dangerouslySetInnerHTML={{ __html: post.html }} />
       </article>
