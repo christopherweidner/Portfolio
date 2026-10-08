@@ -67,3 +67,34 @@
 
 .prose-post img { max-width: 100%; height: auto; border-radius: 6px; }
 .prose-post hr { border: 0; border-top: 1px solid var(--rule); }
+
+/* Tables: mono column labels over hairline rows, like the site's small caps. */
+.prose-post table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.94em;
+  line-height: 1.5;
+}
+.prose-post th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--label);
+  text-align: left;
+  padding: 0 1em 0.75em 0;
+  border-bottom: 1px solid var(--ink);
+}
+.prose-post td {
+  padding: 0.85em 1em 0.85em 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+.prose-post th:last-child,
+.prose-post td:last-child { padding-right: 0; }
+.prose-post td strong { color: var(--ink); white-space: nowrap; }
+
+@media (max-width: 480px) {
+  .prose-post td strong { white-space: normal; }
+}

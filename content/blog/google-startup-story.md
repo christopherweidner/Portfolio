@@ -2,6 +2,8 @@
 title: Insights from EWOR x Google Cloud x Google DeepMind
 date: 2026-10-08
 summary: How AI is changing software development, and why your job is now writing the constraints, not the code
+image: /blog/google-startup-story.jpg
+imageAlt: A hand drawing a grid with a pen while a small one-eyed robot works inside it
 ---
 
 Yesterday I was at the Google office in Berlin for an evening with EWOR, Google Cloud and Google DeepMind. The office itself was pretty cool (there's a screen in the lobby showing live Google searches from all over the world). The talk that stuck with me the most was from Paul Müller, EWOR Partner and co-founder of Adjust (~$1bn exit). He talked about how AI changes building software startups. Normally I hate those kinds of talks, because everybody has to say something about AI and nothing is meaningful or shifts the way I operate. But this one was different. It was fun to listen to, because you could tell that Paul himself likes to experiment and code with AI. He even built his own tool for it (more on that below). These are my personal key takeaways:
