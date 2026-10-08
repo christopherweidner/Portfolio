@@ -116,14 +116,15 @@ export default function Intro() {
 
   const skip = useCallback(() => finish("skip"), [finish]);
 
-  // Phase timers. Already seen (the <head> script marked <html>) means the
-  // schedule is just "done" on the next tick — CSS keeps it invisible meanwhile.
+  // Phase timers. Already seen (the <head> script or an earlier visit marked
+  // <html>, as "skip" or "landed") means the schedule is just "done" on the
+  // next tick, keeping that mark — CSS keeps the overlay invisible meanwhile.
   useEffect(() => {
-    const seen = document.documentElement.dataset.intro === "skip";
+    const seen = document.documentElement.dataset.intro as Ending | undefined;
     const schedule: typeof TIMELINE = seen ? [["done", 0]] : TIMELINE;
     timers.current = schedule.map(([next, at]) =>
       window.setTimeout(() => {
-        if (next === "done") return finish(seen ? "skip" : "landed");
+        if (next === "done") return finish(seen ?? "landed");
         if (next === "leaving" && stack.current) aimAtHero(stack.current);
         setPhase(next);
       }, at),
@@ -133,7 +134,7 @@ export default function Intro() {
 
   // Keyboard skip and scroll lock while visible.
   useEffect(() => {
-    if (phase === "done" || document.documentElement.dataset.intro === "skip") return;
+    if (phase === "done" || document.documentElement.dataset.intro) return;
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape" || event.key === "Enter" || event.key === " ") {
         event.preventDefault();
