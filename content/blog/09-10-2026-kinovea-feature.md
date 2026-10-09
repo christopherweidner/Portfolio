@@ -2,6 +2,8 @@
 title: I built the feature my swim training was missing
 date: 2026-10-09
 summary: How I added a speed graph to Kinovea after a turn training session
+image: /blog/kinovea-feature.jpg
+imageAlt: A Kinovea window with a swimmer, and a speed-over-time graph below it marking the current moment
 ---
 
 This morning I did turn training in the pool: breaststroke turns, tumble turns, 15 meters swim-in, turn, 15 meters push-off. We filmed it and looked at it in Kinovea. It's a free, open source video analysis tool used a lot in sports. You track a point in the video, and it shows you the speed of that point at every moment.
